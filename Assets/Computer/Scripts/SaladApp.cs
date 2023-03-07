@@ -119,9 +119,15 @@ public class SaladApp : MonoBehaviour
         while (saladChopping)
         {
             yield return new WaitForSeconds(1);
-            GameManager.instance.Money += GameManager.instance.MoneyPerHour;
-            balanceText.text = "$" + GameManager.instance.Money.ToString();
-            last24HrsText.text = "+ $" + GameManager.instance.Money.ToString();
+            if (GameManager.instance.TimeSpeed == 1)
+            {
+                GameManager.instance.Money += GameManager.instance.MoneyPerMinute * 10;
+            } else if (GameManager.instance.TimeSpeed == 2)
+            {
+                GameManager.instance.Money += GameManager.instance.MoneyPerMinute * 60;
+            }
+            balanceText.text = "$" + GameManager.instance.Money.ToString("0.00");
+            last24HrsText.text = "+ $" + GameManager.instance.Money.ToString("0.00");
         }
     }
 

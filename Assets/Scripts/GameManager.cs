@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,10 +9,20 @@ public class GameManager : MonoBehaviour
 
     private float money { get; set; }
 
-    // Salad
-    private float defaultMoneyPerHour = 0.13f;
-    private float moneyPerHour { get; set; }
+    [SerializeField] private TMP_Text moneyText;
 
+    // Time
+    [SerializeField] private TMP_Text TimeText;
+    private bool timeRunning { get; set; }
+    private int currentDay { get; set; }
+    private int currentHour { get; set; }
+    private int currentMinute { get; set; }
+    [SerializeField] private int timeSpeed { get; set; }
+    [SerializeField] private int timeSpeedEditor;
+
+    // Salad
+    private float defaultMoneyPerMinute = 0.00217f; // 0.13/hour
+    private float moneyPerMinute { get; set; }
 
     private void Awake()
     {
@@ -28,18 +40,111 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-       moneyPerHour = defaultMoneyPerHour;
+        moneyPerMinute = defaultMoneyPerMinute;
+        timeRunning = true;
+        currentDay = 1;
+        currentHour = 0;
+        currentMinute = 0;
+
+        InvokeRepeating("UpdateTime", 0, 1);
     }
 
+    public void Update()
+    {
+        moneyText.text = "Money: " + money.ToString("0.00");
+
+        timeSpeed = timeSpeedEditor;
+
+        if (timeSpeed == 0)
+        {
+            timeRunning = false;
+        } else
+        {
+            timeRunning = true;
+        }
+    }
+
+    // Time system
+    private void UpdateTime()
+    {
+        if (timeRunning)
+        {
+            if (timeSpeed == 1)
+            {
+                // 1 real life second = 10 minutes in game
+                currentMinute += 10;
+
+                if (currentMinute >= 60)
+                {
+                    currentMinute = 0;
+                    currentHour += 1;
+                    Debug.Log("New hour - Hour " + currentHour);
+                }
+
+                if (currentHour >= 24)
+                {
+                    currentHour = 0;
+                    currentDay += 1;
+                    Debug.Log("New day - Day " + currentDay);
+                }
+                TimeText.text = "Time: " + currentDay + "d " + currentHour + "h " + currentMinute + "m";
+            }
+            else if (timeSpeed == 2)
+            {
+                // 1 real life second = 1 hour in game
+                currentHour += 1;
+
+                Debug.Log("New hour - Hour " + currentHour);
+                if (currentHour >= 24)
+                {
+                    currentHour = 0;
+                    currentDay += 1;
+                    Debug.Log("New day - Day " + currentDay);
+                }
+                TimeText.text = "Time: " + currentDay + "d " + currentHour + "h " + currentMinute + "m";
+            }
+        }
+    }
+
+    // Getters and setters
     public float Money
     {
         get { return money; }
         set { money = value; }
     }
 
-    public float MoneyPerHour
+    public float MoneyPerMinute
     {
-        get { return moneyPerHour; }
-        set { moneyPerHour = value; }
+        get { return moneyPerMinute; }
+        set { moneyPerMinute = value; }
+    }
+
+    public bool TimeRunning
+    {
+        get { return timeRunning; }
+        set { timeRunning = value; }
+    }
+
+    public int CurrentDay
+    {
+        get { return currentDay; }
+        set { currentDay = value; }
+    }
+
+    public int CurrentHour
+    {
+        get { return currentHour; }
+        set { currentHour = value; }
+    }
+
+    public int CurrentMinute
+    {
+        get { return currentMinute; }
+        set { currentMinute = value; }
+    }
+    public int TimeSpeed
+    {
+        get { return timeSpeed; }
+        set { timeSpeed = value; }
     }
 }
