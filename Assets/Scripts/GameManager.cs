@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     // Salad
     private float defaultMoneyPerMinute = 0.00217f; // 0.13/hour
     private float moneyPerMinute { get; set; }
+    [SerializeField] private float moneyPerMinuteEditor = 0.00217f;
 
     private void Awake()
     {
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         moneyText.text = "Money: " + money.ToString("0.00");
 
         timeSpeed = timeSpeedEditor;
+        moneyPerMinute = moneyPerMinuteEditor;
 
         if (timeSpeed == 0)
         {

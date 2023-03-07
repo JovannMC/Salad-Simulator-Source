@@ -126,8 +126,10 @@ public class SaladApp : MonoBehaviour
             {
                 GameManager.instance.Money += GameManager.instance.MoneyPerMinute * 60;
             }
+            float next24Hrs = GameManager.instance.MoneyPerMinute * 60 * 24;
             balanceText.text = "$" + GameManager.instance.Money.ToString("0.00");
             last24HrsText.text = "+ $" + GameManager.instance.Money.ToString("0.00");
+            next24HrsText.text = "+ $" + next24Hrs.ToString("0.00");
         }
     }
 
