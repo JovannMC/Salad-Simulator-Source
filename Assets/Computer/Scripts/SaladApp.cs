@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,9 @@ public class SaladApp : MonoBehaviour
     [SerializeField] private GameObject runningImg;
     [SerializeField] private GameObject statusBg;
     [SerializeField] private TMP_Text statusText;
+    [SerializeField] private TMP_Text balanceText;
+    [SerializeField] private TMP_Text last24HrsText;
+    [SerializeField] private TMP_Text next24HrsText;
 
     private bool saladChopping = false;
 
@@ -46,6 +50,7 @@ public class SaladApp : MonoBehaviour
 
             statusBg.GetComponent<Image>().color = Color.white;
             statusText.text = "Paused";
+            StopCoroutine("AddMoney");
         } else
         {
             saladChopping = true;
@@ -56,6 +61,7 @@ public class SaladApp : MonoBehaviour
 
             statusBg.GetComponent<Image>().color = new Color32(178, 213, 48, 255);
             statusText.text = "Running";
+            StartCoroutine("AddMoney");
         }
     }
 
@@ -80,7 +86,7 @@ public class SaladApp : MonoBehaviour
                 performanceTab.GetComponent<TextMeshProUGUI>().color = new Color32(178, 213, 48, 255);
                 performanceContent.SetActive(true);
                 performanceBtnOutline.SetActive(true);
-                
+
                 earnTab.GetComponent<TextMeshProUGUI>().color = new Color32(204, 226, 182, 255);
                 earnContent.SetActive(false);
                 earnBtnOutline.SetActive(false);
@@ -107,4 +113,17 @@ public class SaladApp : MonoBehaviour
                 break;
         }
     }
+
+    IEnumerator AddMoney()
+    {
+        while (saladChopping)
+        {
+            yield return new WaitForSeconds(1);
+            GameManager.instance.Money += GameManager.instance.MoneyPerHour;
+            balanceText.text = "$" + GameManager.instance.Money.ToString();
+            last24HrsText.text = "+ $" + GameManager.instance.Money.ToString();
+        }
+    }
+
 }
+
