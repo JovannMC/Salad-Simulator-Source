@@ -1,15 +1,25 @@
 using SUPERCharacter;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ComputerManager : MonoBehaviour
+public class ComputerManager : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject monitorScreen;
     [SerializeField] private Camera playerCam;
     [SerializeField] private Camera monitorCam;
     [SerializeField] private GameObject startMenu;
     [SerializeField] private SUPERCharacterAIO playerController;
 
+    [SerializeField] private GameObject startupScreen;
+    [SerializeField] private GameObject blankScreen;
+    [SerializeField] private GameObject monitorOverlay;
+
+    private bool isShutdown = true;
     private bool menuOpen = false;
+
+    private List<Coroutine> runningCoroutines = new List<Coroutine>();
 
     void Update()
     {
@@ -43,6 +53,51 @@ public class ComputerManager : MonoBehaviour
         playerCam.GetComponent<Camera>().enabled = true;
         monitorCam.GetComponent<Camera>().targetTexture = Resources.Load<RenderTexture>("Computer");
 
+        monitorOverlay.SetActive(false);
+
         playerController.inUI = false;
+    }
+
+    IEnumerator StartComputer()
+    {
+        foreach (GameObject app in GameObject.FindGameObjectsWithTag("Apps")) {
+            app.SetActive(false);
+        }
+
+        blankScreen.SetActive(false);
+        isShutdown = false;
+
+        startupScreen.SetActive(true);
+        yield return new WaitForSeconds(3);
+        startupScreen.SetActive(false);
+    }
+
+    public void Interact()
+    {
+        if (isShutdown)
+        {
+            runningCoroutines.Add(StartCoroutine(StartComputer()));
+        } else
+        {
+            blankScreen.SetActive(true);
+            isShutdown = true;
+
+            foreach (Coroutine coroutine in runningCoroutines)
+            {
+                StopCoroutine(runningCoroutines[runningCoroutines.Count - 1]);
+            }
+        }
+    }
+
+    public string GetDescription()
+    {
+        if (isShutdown)
+        {
+            return "Start Computer";
+        }
+        else
+        {
+            return "Shutdown Computer";
+        }
     }
 }
