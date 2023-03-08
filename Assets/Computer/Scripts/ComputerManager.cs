@@ -58,7 +58,23 @@ public class ComputerManager : MonoBehaviour, IInteractable
         playerController.inUI = false;
     }
 
-    IEnumerator StartComputer()
+    public void ShutdownComputer()
+    {
+        blankScreen.SetActive(true);
+        isShutdown = true;
+
+        foreach (Coroutine coroutine in runningCoroutines)
+        {
+            StopCoroutine(runningCoroutines[runningCoroutines.Count - 1]);
+        }
+    }
+
+    public void RestartComputer()
+    {
+        StartCoroutine(Restart());
+    }
+
+    IEnumerator BootSequence()
     {
         foreach (GameObject app in GameObject.FindGameObjectsWithTag("Apps")) {
             app.SetActive(false);
@@ -72,20 +88,21 @@ public class ComputerManager : MonoBehaviour, IInteractable
         startupScreen.SetActive(false);
     }
 
+    IEnumerator Restart()
+    {
+        ShutdownComputer();
+        yield return new WaitForSeconds(2);
+        runningCoroutines.Add(StartCoroutine(BootSequence()));
+    }
+
     public void Interact()
     {
         if (isShutdown)
         {
-            runningCoroutines.Add(StartCoroutine(StartComputer()));
+            runningCoroutines.Add(StartCoroutine(BootSequence()));
         } else
         {
-            blankScreen.SetActive(true);
-            isShutdown = true;
-
-            foreach (Coroutine coroutine in runningCoroutines)
-            {
-                StopCoroutine(runningCoroutines[runningCoroutines.Count - 1]);
-            }
+            ShutdownComputer();
         }
     }
 
