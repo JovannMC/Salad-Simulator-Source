@@ -35,14 +35,12 @@ public class SaladApp : MonoBehaviour
     [SerializeField] private TMP_Text last24HrsText;
     [SerializeField] private TMP_Text next24HrsText;
 
-    private bool saladChopping = false;
-
     // Earn tab
     public void ToggleSalad()
     {
-        if (saladChopping)
+        if (GameManager.instance.SaladChopping)
         {
-            saladChopping = false;
+            GameManager.instance.SaladChopping = false;
             runningImg.SetActive(false);
 
             choppingBtn.GetComponent<CircleGraphic>().color = new Color32(30, 51, 68, 255);
@@ -53,7 +51,7 @@ public class SaladApp : MonoBehaviour
             StopCoroutine("AddMoney");
         } else
         {
-            saladChopping = true;
+            GameManager.instance.SaladChopping = true;
             startImg.SetActive(false);
 
             choppingBtn.GetComponent<CircleGraphic>().color = new Color32(178, 213, 48, 255);
@@ -116,7 +114,7 @@ public class SaladApp : MonoBehaviour
 
     IEnumerator AddMoney()
     {
-        while (saladChopping)
+        while (GameManager.instance.SaladChopping)
         {
             yield return new WaitForSeconds(1);
             if (GameManager.instance.TimeSpeed == 1)

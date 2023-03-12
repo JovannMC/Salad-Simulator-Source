@@ -17,13 +17,14 @@ public class GameManager : MonoBehaviour
     private int currentDay { get; set; }
     private int currentHour { get; set; }
     private int currentMinute { get; set; }
-    [SerializeField] private int timeSpeed { get; set; }
-    [SerializeField] private int timeSpeedEditor;
+    public int timeSpeed = 2;
 
     // Salad
-    private float defaultMoneyPerMinute = 0.00217f; // 0.13/hour
+    private bool saladChopping { get; set; }
     private float moneyPerMinute { get; set; }
-    [SerializeField] private float moneyPerMinuteEditor = 0.00217f;
+
+    // PC
+    public float hardwarePower = 1f;
 
     private void Awake()
     {
@@ -41,7 +42,6 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        moneyPerMinute = defaultMoneyPerMinute;
         timeRunning = true;
         currentDay = 1;
         currentHour = 0;
@@ -54,8 +54,7 @@ public class GameManager : MonoBehaviour
     {
         moneyText.text = "Money: " + money.ToString("0.00");
 
-        timeSpeed = timeSpeedEditor;
-        moneyPerMinute = moneyPerMinuteEditor;
+        //moneyPerMinute = moneyPerMinuteEditor;
 
         if (timeSpeed == 0)
         {
@@ -148,5 +147,10 @@ public class GameManager : MonoBehaviour
     {
         get { return timeSpeed; }
         set { timeSpeed = value; }
+    }
+    public bool SaladChopping
+    {
+        get { return saladChopping; }
+        set { saladChopping = value; }
     }
 }
