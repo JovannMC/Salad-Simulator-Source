@@ -62,8 +62,7 @@ public class SaladMatrix : MonoBehaviour
     {
         while (true) 
         {
-            //yield return new WaitForSeconds(Random.Range(12, 36));
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(Random.Range(18, 48));
             if (GameManager.instance.SaladChopping) 
             {
                 // Select a random job
