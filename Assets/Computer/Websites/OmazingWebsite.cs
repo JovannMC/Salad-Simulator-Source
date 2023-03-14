@@ -54,6 +54,9 @@ public class OmazingWebsite : MonoBehaviour
 
     private Dictionary<int, string> cartList = new Dictionary<int, string>();
 
+    private List<GameObject> checkoutItems = new List<GameObject>();
+    private List<GameObject> orderReceivedItems = new List<GameObject>();
+
     private void Start() 
     {
         StartCoroutine(IncreaseOrderID());
@@ -163,16 +166,24 @@ public class OmazingWebsite : MonoBehaviour
         checkout.SetActive(true);
         checkoutItemsList.SetActive(true);
 
-        // destroy all but disabled object
-        foreach (Transform item in checkoutItemsList.transform)
+        // clear list
+        if (checkoutItems.Count > 0)
         {
-            if (item.gameObject.name == "NewItem")
+            foreach (GameObject item in checkoutItems)
             {
-                Destroy(item.gameObject);
+                Destroy(item);
+            }
+        }
+
+        if (orderReceivedItems.Count > 0)
+        {
+            foreach (GameObject item in orderReceivedItems)
+            {
+                Destroy(item);
             }
         }
         
-        // add cart list
+        // add to cart list
         foreach (KeyValuePair<int, string> item in cartList)
         {
             GameObject newItem = Instantiate(checkoutItemPrefab, checkoutItemPrefab.transform.parent);
@@ -180,16 +191,15 @@ public class OmazingWebsite : MonoBehaviour
             newItem.transform.Find("ProductName").GetComponent<TMP_Text>().text = item.Value;
             newItem.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${OmazingPrices.price[item.Value]}";
             newItem.SetActive(true);
-            print("newitem: " + newItem);
+            checkoutItems.Add(newItem);
             
-            // TODO fix duping issues for this part
             // fixed?
             GameObject newItemTy = Instantiate(orderReceivedItemPrefab, orderReceivedItemPrefab.transform.parent);
             newItemTy.name = "NewItem";
             newItemTy.transform.Find("ProductName").GetComponent<TMP_Text>().text = item.Value;
             newItemTy.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${OmazingPrices.price[item.Value]}";
             newItemTy.SetActive(true);
-            print("newitemty: " + newItemTy);
+            orderReceivedItems.Add(newItemTy);
         }
         
         float subtotal = this.subtotal;
@@ -219,7 +229,7 @@ public class OmazingWebsite : MonoBehaviour
         UpdateCheckout();
         
         orderReceivedOrderIdText.text = $"#{orderId.ToString()}";
-        
+
         /*List<String> list = new List<String>();
         
         foreach (KeyValuePair<int, string> entry in cartList)
@@ -227,8 +237,46 @@ public class OmazingWebsite : MonoBehaviour
             list.Add(entry.Value);
         }
         
-        // TODO: send to delivery manager
+        // TODO: create and send to delivery manager
         // deliveryManager.NewDelivery(list);*/
+
+        // Set current CPU
+        foreach (KeyValuePair<string, float[]> cpu in Hardware.cpu) {
+            if (cartList.ContainsValue(cpu.Key)) {
+                GameManager.instance.CurrentCPU = cpu.Key;
+                Debug.Log("Current CPU: " + GameManager.instance.CurrentCPU);
+                GameManager.instance.hardwarePower = 1 + Hardware.cpu[GameManager.instance.CurrentCPU][0];
+                Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
+                break;
+            }
+        }
+
+        // Set current GPU(s)
+        foreach (KeyValuePair<string, float[]> gpu in Hardware.gpu) {
+            if (cartList.ContainsValue(gpu.Key)) {
+                Debug.Log("Added " + gpu.Key + " to GPU list");
+                GameManager.instance.CurrentGPUs.Add(gpu.Key);
+                Debug.Log("Current GPUs: " + GameManager.instance.CurrentGPUs);
+                GameManager.instance.hardwarePower = 1 + Hardware.gpu[GameManager.instance.CurrentGPUs[0]][0];
+                Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
+            }
+        }
+
+        // Clear cart
+        cartList.Clear();
+        cartItems = 0;
+        cartQuantityText.text = "0";
+        cartPriceText.text = "$0.00";
+        checkoutSubtotalText.text = "$0.00";
+        subtotal = 0;
+
+        foreach (GameObject item in checkoutItems)
+        {
+            Destroy(item);
+        }
+
+        checkout.SetActive(false);
+        orderReceived.SetActive(true);
     }
 
     // Order received

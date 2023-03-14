@@ -1,6 +1,5 @@
-using System.Collections;
+using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -24,6 +23,8 @@ public class GameManager : MonoBehaviour
     private float moneyPerMinute { get; set; }
 
     // PC
+    private string currentCPU { get; set; }
+    private List<string> currentGPUs = new List<string>();
     public float hardwarePower = 1f;
 
     private void Awake()
@@ -143,14 +144,28 @@ public class GameManager : MonoBehaviour
         get { return currentMinute; }
         set { currentMinute = value; }
     }
+
     public int TimeSpeed
     {
         get { return timeSpeed; }
         set { timeSpeed = value; }
     }
+
     public bool SaladChopping
     {
         get { return saladChopping; }
         set { saladChopping = value; }
+    }
+
+    public string CurrentCPU
+    {
+        get { return currentCPU; }
+        set { currentCPU = value; }
+    }
+
+    public List<string> CurrentGPUs
+    {
+        get { return currentGPUs; }
+        set { currentGPUs = value; }
     }
 }

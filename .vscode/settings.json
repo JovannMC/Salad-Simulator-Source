@@ -55,7 +55,13 @@
         "ProjectSettings/": true,
         "temp/": true,
         "Temp/": true,
-        "*.csproj": true
+        "*.csproj": true,
+        "**/Logs": true,
+        "Logs": true,
+        "**/UserSettings": true,
+        "UserSettings": true,
+        "**/Packages": true,
+        "Packages": true
     },
     "explorerExclude.backup": {}
 }
