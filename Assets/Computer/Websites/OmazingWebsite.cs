@@ -245,7 +245,7 @@ public class OmazingWebsite : MonoBehaviour
             if (cartList.ContainsValue(cpu.Key)) {
                 GameManager.instance.CurrentCPU = cpu.Key;
                 Debug.Log("Current CPU: " + GameManager.instance.CurrentCPU);
-                GameManager.instance.hardwarePower = 1 + Hardware.cpu[GameManager.instance.CurrentCPU][0];
+                GameManager.instance.hardwarePower += Hardware.cpu[GameManager.instance.CurrentCPU][0];
                 Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
                 break;
             }
@@ -257,7 +257,7 @@ public class OmazingWebsite : MonoBehaviour
                 Debug.Log("Added " + gpu.Key + " to GPU list");
                 GameManager.instance.CurrentGPUs.Add(gpu.Key);
                 Debug.Log("Current GPUs: " + GameManager.instance.CurrentGPUs);
-                GameManager.instance.hardwarePower = 1 + Hardware.gpu[GameManager.instance.CurrentGPUs[0]][0];
+                GameManager.instance.hardwarePower += Hardware.gpu[GameManager.instance.CurrentGPUs[0]][0];
                 Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
             }
         }
