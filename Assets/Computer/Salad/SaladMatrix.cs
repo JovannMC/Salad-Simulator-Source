@@ -40,7 +40,7 @@ public class SaladMatrix : MonoBehaviour
                 float earnings = ((baseEarnings * currentJobEarnings) * GameManager.instance.hardwarePower) * marketDemand;
 
                 // debug messages
-                Debug.Log("Job: " + currentJob + " earning " + currentJobEarnings + " marketDemand: " + marketDemand.ToString() + " hardwarePower: " + GameManager.instance.hardwarePower.ToString());
+                Debug.Log("Job: " + currentJob + " earning " + currentJobEarnings + " marketDemand: " + marketDemand.ToString("0.00") + " hardwarePower: " + GameManager.instance.hardwarePower.ToString());
                 Debug.Log("Earnings: " + earnings.ToString());
 
                 // Send earnings to SaladApp

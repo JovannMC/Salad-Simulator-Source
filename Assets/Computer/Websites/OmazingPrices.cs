@@ -22,7 +22,32 @@ public static class OmazingPrices
         {"Celerium G4000", 39.99f},
 
         // GPUs
-        {"GPX 4090", 1599.99f}
+        {"RPX 4090", 1799.99f},
+        {"RPX 4080", 1299.99f},
+        {"RPX 4070 Ti", 799.99f},
+        {"RPX 3090 Ti", 1199.99f},
+        {"RPX 3090", 999.99f},
+        {"RPX 3080 Ti", 899.99f},
+        {"RPX 3080", 799.99f},
+        {"RPX 3070 Ti", 599.99f},
+        {"RPX 3070", 499.99f},
+        {"RPX 3060 Ti", 399.99f},
+        {"RPX 3060", 329.99f},
+        {"RPX 2080 Ti", 399.99f},
+        {"RPX 2080", 349.99f},
+        {"RPX 2070", 269.99f},
+        {"RPX 2060", 229.99f},
+        {"GPX 1660 Ti", 199.99f},
+        {"GPX 1660", 169.99f},
+        {"GPX 1650 Super", 139.99f},
+        {"GPX 1650", 119.99f},
+        {"GPX 1080 Ti", 349.99f},
+        {"GPX 1080", 299.99f},
+        {"GPX 1070 Ti", 249.99f},
+        {"GPX 1070", 229.99f},
+        {"GPX 1060", 139.99f},
+        {"GPX 1050 Ti", 99.99f}
+
     };
     public static readonly Dictionary<string, int> code = new Dictionary<string, int>()
     {
