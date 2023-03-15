@@ -54,7 +54,7 @@ public class SaladMatrix : MonoBehaviour
         while (true) 
         {
             yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
-            marketDemand = Random.Range(1, 1.5f);
+            marketDemand = Random.Range(1, 1.4f);
         }
     }
 
