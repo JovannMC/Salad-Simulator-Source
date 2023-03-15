@@ -252,13 +252,15 @@ public class OmazingWebsite : MonoBehaviour
         }
 
         // Set current GPU(s)
-        foreach (KeyValuePair<string, float[]> gpu in Hardware.gpu) {
-            if (cartList.ContainsValue(gpu.Key)) {
-                Debug.Log("Added " + gpu.Key + " to GPU list");
-                GameManager.instance.CurrentGPUs.Add(gpu.Key);
-                Debug.Log("Current GPUs: " + GameManager.instance.CurrentGPUs);
-                GameManager.instance.hardwarePower += Hardware.gpu[GameManager.instance.CurrentGPUs[0]][0];
-                Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
+        foreach (KeyValuePair<string, float[]> hardwareGPUs in Hardware.gpu) {
+            foreach (KeyValuePair<int, string> cartGPUs in cartList) {
+                if (hardwareGPUs.Key == cartGPUs.Value) {
+                    Debug.Log("Added " + hardwareGPUs.Key + " to GPU list");
+                    GameManager.instance.CurrentGPUs.Add(hardwareGPUs.Key);
+                    Debug.Log("Current GPUs: " + GameManager.instance.CurrentGPUs);
+                    GameManager.instance.hardwarePower += Hardware.gpu[GameManager.instance.CurrentGPUs[0]][0];
+                    Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
+                }
             }
         }
 
