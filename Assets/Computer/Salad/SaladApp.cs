@@ -11,11 +11,11 @@ public class SaladApp : MonoBehaviour
     [SerializeField] private GameObject performanceTab;
     [SerializeField] private GameObject notificationTab;
 
-    // Outlines
-    [Header("Outlines")]
-    [SerializeField] private GameObject earnBtnOutline;
-    [SerializeField] private GameObject performanceBtnOutline;
-    [SerializeField] private GameObject notificationBtnOutline;
+    // Underlines
+    [Header("Underlines")]
+    [SerializeField] private GameObject earnBtnUnderline;
+    [SerializeField] private GameObject performanceBtnUnderline;
+    [SerializeField] private GameObject notificationBtnUnderline;
 
     // Content
     [Header("Content")]
@@ -88,40 +88,40 @@ public class SaladApp : MonoBehaviour
             case "earn":
                 earnTab.GetComponent<TextMeshProUGUI>().color = new Color32(178, 213, 48, 255);
                 earnContent.SetActive(true);
-                earnBtnOutline.SetActive(true);
+                earnBtnUnderline.SetActive(true);
 
                 performanceTab.GetComponent<TextMeshProUGUI>().color = new Color32(204, 226, 182, 255);
                 performanceContent.SetActive(false);
-                performanceBtnOutline.SetActive(false);
+                performanceBtnUnderline.SetActive(false);
                 notificationTab.GetComponent<Image>().color = new Color32(204, 226, 182, 255);
                 notificationContent.SetActive(false);
-                notificationBtnOutline.SetActive(false);
+                notificationBtnUnderline.SetActive(false);
                 pfpContent.SetActive(false);
                 break;
             case "performance":
                 performanceTab.GetComponent<TextMeshProUGUI>().color = new Color32(178, 213, 48, 255);
                 performanceContent.SetActive(true);
-                performanceBtnOutline.SetActive(true);
+                performanceBtnUnderline.SetActive(true);
 
                 earnTab.GetComponent<TextMeshProUGUI>().color = new Color32(204, 226, 182, 255);
                 earnContent.SetActive(false);
-                earnBtnOutline.SetActive(false);
+                earnBtnUnderline.SetActive(false);
                 notificationTab.GetComponent<Image>().color = new Color32(204, 226, 182, 255);
                 notificationContent.SetActive(false);
-                notificationBtnOutline.SetActive(false);
+                notificationBtnUnderline.SetActive(false);
                 pfpContent.SetActive(false);
                 break;
             case "notifications":
                 notificationTab.GetComponent<Image>().color = new Color32(178, 213, 48, 255);
                 notificationContent.SetActive(true);
-                notificationBtnOutline.SetActive(true);
+                notificationBtnUnderline.SetActive(true);
 
                 earnTab.GetComponent<TextMeshProUGUI>().color = new Color32(204, 226, 182, 255);
                 earnContent.SetActive(false);
-                earnBtnOutline.SetActive(false);
+                earnBtnUnderline.SetActive(false);
                 performanceTab.GetComponent<TextMeshProUGUI>().color = new Color32(204, 226, 182, 255);
                 performanceContent.SetActive(false);
-                performanceBtnOutline.SetActive(false);
+                performanceBtnUnderline.SetActive(false);
                 pfpContent.SetActive(false);
                 break;
             case "pfp":
