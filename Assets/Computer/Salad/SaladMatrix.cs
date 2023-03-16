@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SaladMatrix : MonoBehaviour
 {
-    [SerializeField] private float baseEarnings = 1f;
+    public static SaladMatrix instance;
+
+    private float baseEarnings = 0.0001f;
     private float marketDemand = 1.0f;
     private Dictionary<string, float> jobTypes = new Dictionary<string, float>()
     {
@@ -18,11 +20,26 @@ public class SaladMatrix : MonoBehaviour
         {"web scraping", 2f},
     };
 
-    private string currentJob = "";
+    private string currentJob = "waiting";
     private float currentJobEarnings = 0.0f;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start() 
     {
+        baseEarnings = 1.0f;
         StartCoroutine(SelectJob());
         StartCoroutine(UpdateMarketDemand());
         StartCoroutine(Earnings());
