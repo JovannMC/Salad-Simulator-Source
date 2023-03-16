@@ -35,6 +35,8 @@ public class OmazingWebsite : MonoBehaviour
     [SerializeField] private TMP_Text checkoutTotalText;
     [SerializeField] private GameObject checkoutItemsList;
     [SerializeField] private GameObject checkoutItemPrefab;
+    [SerializeField] private GameObject noMoneyError;
+    [SerializeField] private GameObject noCartItemsError;
 
     [Header("Order Received")]
     [SerializeField] private TMP_Text orderReceivedSubtotalText;
@@ -228,6 +230,19 @@ public class OmazingWebsite : MonoBehaviour
 
     public void PlaceOrder()
     {
+        float total = float.Parse(checkoutTotalText.text.Replace("$", ""));
+        if (cartItems == 0)
+        {
+            noCartItemsError.SetActive(true);
+            return;
+        }
+        if (GameManager.instance.Money < total)
+        {
+            noMoneyError.SetActive(true);
+            return;
+        }
+        GameManager.instance.Money -= total;
+
         UpdateCheckout();
         
         orderReceivedOrderIdText.text = $"#{orderId.ToString()}";
