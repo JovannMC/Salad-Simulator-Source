@@ -35,6 +35,11 @@ public class SaladApp : MonoBehaviour
     [SerializeField] private TMP_Text last24HrsText;
     [SerializeField] private TMP_Text next24HrsText;
 
+    // Performance tab
+    [Header("Performance tab")]
+    [SerializeField] private GameObject cpuCard;
+    [SerializeField] private GameObject hardwarePrefab;
+
     // Earn tab
     public void ToggleSalad()
     {
@@ -61,6 +66,19 @@ public class SaladApp : MonoBehaviour
             statusText.text = "Running";
             StartCoroutine("AddMoney");
         }
+    }
+
+    public void AddToPerformance(string hardwareName, string hardwareType) 
+    {
+        if (hardwareType == "CPU") {
+            cpuCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = hardwareName;
+        } else if (hardwareType == "GPU") {
+            GameObject hardware = Instantiate(hardwarePrefab, hardwarePrefab.transform.parent);
+            hardware.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = hardwareName;
+            hardware.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/graphic-card");
+            hardware.SetActive(true);
+        }
+        
     }
 
     public void OpenTab(string tab)
@@ -111,6 +129,8 @@ public class SaladApp : MonoBehaviour
                 break;
         }
     }
+
+    
 
     IEnumerator AddMoney()
     {

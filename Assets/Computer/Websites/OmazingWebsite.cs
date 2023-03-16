@@ -45,6 +45,8 @@ public class OmazingWebsite : MonoBehaviour
     [SerializeField] private TMP_Text orderReceivedOrderIdText;
     [SerializeField] private GameObject orderReceivedItemPrefab;
 
+    [SerializeField] private SaladApp saladApp;
+
     private float subtotal;
     private string discountCode;
 
@@ -250,6 +252,7 @@ public class OmazingWebsite : MonoBehaviour
                 break;
             }
         }
+        saladApp.AddToPerformance(GameManager.instance.CurrentCPU, "CPU");
 
         // Set current GPU(s)
         foreach (KeyValuePair<string, float[]> hardwareGPUs in Hardware.gpu) {
@@ -260,6 +263,7 @@ public class OmazingWebsite : MonoBehaviour
                     Debug.Log("Current GPUs: " + GameManager.instance.CurrentGPUs);
                     GameManager.instance.hardwarePower += Hardware.gpu[GameManager.instance.CurrentGPUs[0]][0];
                     Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
+                    saladApp.AddToPerformance(hardwareGPUs.Key, "GPU");
                 }
             }
         }
