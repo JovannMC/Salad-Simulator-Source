@@ -39,7 +39,6 @@ public class SaladMatrix : MonoBehaviour
 
     private void Start() 
     {
-        baseEarnings = 1.0f;
         StartCoroutine(SelectJob());
         StartCoroutine(UpdateMarketDemand());
         StartCoroutine(Earnings());
