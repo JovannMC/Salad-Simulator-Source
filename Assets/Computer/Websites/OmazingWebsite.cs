@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class OmazingWebsite : MonoBehaviour
 {
+    #region GameObjects
     [SerializeField] private GameObject cpu;
     [SerializeField] private GameObject ram;
     [SerializeField] private GameObject gpu;
@@ -26,6 +27,10 @@ public class OmazingWebsite : MonoBehaviour
     [Header("Homepage")]
     [SerializeField] private TMP_Text cartPriceText;
     [SerializeField] private TMP_Text cartQuantityText;
+    [SerializeField] private GameObject infoCard;
+    [SerializeField] private GameObject infoCardName;
+    [SerializeField] private GameObject infoCardPower;
+    [SerializeField] private GameObject infoCardElectricity;
 
     [Header("Checkout")]
     [SerializeField] private TMP_Text checkoutSubtotalText;
@@ -48,7 +53,9 @@ public class OmazingWebsite : MonoBehaviour
     [SerializeField] private GameObject orderReceivedItemPrefab;
 
     [SerializeField] private SaladApp saladApp;
+    #endregion
 
+    #region Variables
     private float subtotal;
     private string discountCode;
 
@@ -60,6 +67,7 @@ public class OmazingWebsite : MonoBehaviour
 
     private List<GameObject> checkoutItems = new List<GameObject>();
     private List<GameObject> orderReceivedItems = new List<GameObject>();
+    #endregion
 
     private void Start() 
     {
@@ -161,6 +169,29 @@ public class OmazingWebsite : MonoBehaviour
                 break;
             
         }
+    }
+
+    public void ShowInfo(String type) 
+    {
+        GameObject btn = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        string itemName = btn.transform.parent.transform.parent.Find("Name").GetComponent<TMP_Text>().text;
+
+        infoCardName.SetActive(true);
+        infoCardPower.SetActive(true);
+        infoCardElectricity.SetActive(true);
+        
+        infoCardName.GetComponent<TMP_Text>().text = itemName;
+        switch (type) {
+            case "cpu":
+                infoCardPower.GetComponent<TMP_Text>().text = "Power: " + Hardware.cpu[itemName][0];
+                infoCardElectricity.GetComponent<TMP_Text>().text = "Electricity: " + Hardware.cpu[itemName][1] + "w";
+                break;
+            case "gpu":
+                infoCardPower.GetComponent<TMP_Text>().text = "Power: " + Hardware.gpu[itemName][0];
+                infoCardElectricity.GetComponent<TMP_Text>().text = "Electricity: " + Hardware.gpu[itemName][1] + "w";
+                break;
+        }
+        infoCard.SetActive(true);
     }
 
     // Checkout
