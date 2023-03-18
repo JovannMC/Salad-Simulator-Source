@@ -250,17 +250,15 @@ public class OmazingWebsite : MonoBehaviour
     private void UpdateCheckout()
     {
         float subtotal = this.subtotal;
-        shipping = float.Parse(checkoutShippingText.text.Replace("$", ""));
+        float shipping = float.Parse(checkoutShippingText.text.Replace("$", ""));
+        total = subtotal + shipping - discountAmount;
 
         checkoutSubtotalText.text = $"${subtotal}";
         checkoutShippingText.text = $"${shipping}";
-
-        Debug.Log($"Subtotal: {subtotal}, Shipping: {shipping}, Discount: {discountAmount}");
-
-        total = subtotal + shipping - discountAmount;
-
+        checkoutDiscountText.text = $"-${discountAmount}";
         checkoutTotalText.text = $"${total}";
-        UpdateOrderReceived(this.subtotal, shipping, this.total);
+
+        UpdateOrderReceived(subtotal, shipping, subtotal + shipping - discountAmount);
     }
 
     public void PlaceOrder()
@@ -343,17 +341,17 @@ public class OmazingWebsite : MonoBehaviour
             float discountPercent = OmazingPrices.code[code];
             float discountAmount = (subtotal + float.Parse(checkoutShippingText.text.Replace("$", ""))) * discountPercent / 100f;
             this.discountAmount = discountAmount;
-            checkoutDiscountText.text = $"-${discountAmount}";
+            UpdateCheckout();
         }
         else
         {
             discountCode = null;
             discountAmount = 0;
-            checkoutDiscountText.text = "-$0.00";
+            UpdateCheckout();
         }
-
-        UpdateCheckout();
     }
+
+
 
     // Order received
     private void UpdateOrderReceived(float subtotal, float shipping, float total)
