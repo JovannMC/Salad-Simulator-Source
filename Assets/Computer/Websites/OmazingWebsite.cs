@@ -50,13 +50,17 @@ public class OmazingWebsite : MonoBehaviour
     [SerializeField] private TMP_Text orderReceivedTaxText;
     [SerializeField] private TMP_Text orderReceivedTotalText;
     [SerializeField] private TMP_Text orderReceivedOrderIdText;
+    [SerializeField] private TMP_Text orderReceivedCodeEnteredText;
     [SerializeField] private GameObject orderReceivedItemPrefab;
 
     [SerializeField] private SaladApp saladApp;
     #endregion
 
     #region Variables
+    private float total;
     private float subtotal;
+    private float shipping = 10;
+    private float discountAmount = 0;
     private string discountCode;
 
     private int orderId = 6969;
@@ -179,7 +183,7 @@ public class OmazingWebsite : MonoBehaviour
         infoCardName.SetActive(true);
         infoCardPower.SetActive(true);
         infoCardElectricity.SetActive(true);
-        
+
         infoCardName.GetComponent<TMP_Text>().text = itemName;
         switch (type) {
             case "cpu":
@@ -246,17 +250,17 @@ public class OmazingWebsite : MonoBehaviour
     private void UpdateCheckout()
     {
         float subtotal = this.subtotal;
-        float shipping = float.Parse(checkoutShippingText.text.Replace("$", ""));
+        shipping = float.Parse(checkoutShippingText.text.Replace("$", ""));
 
         checkoutSubtotalText.text = $"${subtotal}";
         checkoutShippingText.text = $"${shipping}";
-        checkoutTotalText.text = $"${subtotal + shipping}";
-        
-        // update after adding
-        subtotal = this.subtotal;
-        shipping = float.Parse(checkoutShippingText.text.Replace("$", ""));
 
-        UpdateOrderReceived(this.subtotal, shipping, subtotal + shipping);
+        Debug.Log($"Subtotal: {subtotal}, Shipping: {shipping}, Discount: {discountAmount}");
+
+        total = subtotal + shipping - discountAmount;
+
+        checkoutTotalText.text = $"${total}";
+        UpdateOrderReceived(this.subtotal, shipping, this.total);
     }
 
     public void PlaceOrder()
@@ -331,13 +335,33 @@ public class OmazingWebsite : MonoBehaviour
         orderReceived.SetActive(true);
     }
 
+    public void ApplyDiscount(string code)
+    {
+        discountCode = code;
+        if (OmazingPrices.code.ContainsKey(code))
+        {
+            float discountPercent = OmazingPrices.code[code];
+            float discountAmount = (subtotal + float.Parse(checkoutShippingText.text.Replace("$", ""))) * discountPercent / 100f;
+            this.discountAmount = discountAmount;
+            checkoutDiscountText.text = $"-${discountAmount}";
+        }
+        else
+        {
+            discountCode = null;
+            discountAmount = 0;
+            checkoutDiscountText.text = "-$0.00";
+        }
+
+        UpdateCheckout();
+    }
+
     // Order received
     private void UpdateOrderReceived(float subtotal, float shipping, float total)
     {
         orderReceivedSubtotalText.text = $" ${subtotal}";
         orderReceivedShippingText.text = $" ${shipping}";
         orderReceivedDiscountText.text = checkoutDiscountText.text;
-        if (discountCode != null) checkoutDiscountText.text = discountCode;
+        if (discountCode != null) orderReceivedCodeEnteredText.text = discountCode;
         orderReceivedTotalText.text = $"${total}";
     }
 
