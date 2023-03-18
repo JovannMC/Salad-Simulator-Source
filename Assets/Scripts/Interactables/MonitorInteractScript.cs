@@ -23,6 +23,22 @@ public class MonitorInteractScript : MonoBehaviour, IInteractable
         monitorCam.GetComponent<Camera>().targetTexture = null;
     }
 
+    private void Update()
+    {
+        if (playerController.inUI) 
+        {
+            if (Input.anyKeyDown)
+            {
+                if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)){ 
+                    GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayMouseClick();
+                } else {
+                    GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayKeyboardClick();
+                }
+            }
+        }
+        
+    }
+
     public string GetDescription()
     {
         return "Open Computer";
