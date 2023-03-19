@@ -59,7 +59,7 @@ public class OmazingWebsite : MonoBehaviour
     #region Variables
     private float total;
     private float subtotal;
-    private float shipping = 10;
+    private float shipping = 10.00f;
     private float discountAmount = 0;
     private string discountCode;
 
@@ -250,7 +250,6 @@ public class OmazingWebsite : MonoBehaviour
     private void UpdateCheckout()
     {
         float subtotal = this.subtotal;
-        float shipping = float.Parse(checkoutShippingText.text.Replace("$", ""));
         total = subtotal + shipping - discountAmount;
 
         checkoutSubtotalText.text = $"${subtotal}";
@@ -351,7 +350,24 @@ public class OmazingWebsite : MonoBehaviour
         }
     }
 
+    public void ClearCart()
+    {
+        cartList.Clear();
+        cartItems = 0;
 
+        subtotal = 0;
+        discountAmount = 0;
+
+        cartQuantityText.text = "0";
+        cartPriceText.text = "$0.00";
+
+        UpdateCheckout();
+
+        foreach (GameObject item in checkoutItems)
+        {
+            Destroy(item);
+        }
+    }
 
     // Order received
     private void UpdateOrderReceived(float subtotal, float shipping, float total)
