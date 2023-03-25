@@ -36,7 +36,6 @@ public class MonitorInteractScript : MonoBehaviour, IInteractable
                 }
             }
         }
-        
     }
 
     public string GetDescription()
