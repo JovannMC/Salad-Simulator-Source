@@ -34,6 +34,7 @@ public class SaladApp : MonoBehaviour
     [SerializeField] private TMP_Text balanceText;
     [SerializeField] private TMP_Text last24HrsText;
     [SerializeField] private TMP_Text next24HrsText;
+    [SerializeField] private TMP_Text currentJobText;
 
     // Performance tab
     [Header("Performance tab")]
@@ -130,8 +131,6 @@ public class SaladApp : MonoBehaviour
         }
     }
 
-    
-
     IEnumerator AddMoney()
     {
         while (GameManager.instance.SaladChopping)
@@ -148,6 +147,7 @@ public class SaladApp : MonoBehaviour
             balanceText.text = "$" + GameManager.instance.Money.ToString("0.00");
             last24HrsText.text = "+ $" + GameManager.instance.Money.ToString("0.00");
             next24HrsText.text = "+ $" + next24Hrs.ToString("0.00");
+            currentJobText.text = GameManager.instance.CurrentJob;
         }
     }
 

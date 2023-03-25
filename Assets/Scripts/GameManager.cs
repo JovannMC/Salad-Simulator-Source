@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     // Salad
     private bool saladChopping { get; set; }
     private float moneyPerMinute { get; set; }
+    private string currentJob { get; set; }
 
     // PC
     private string currentCPU { get; set; }
@@ -167,5 +168,11 @@ public class GameManager : MonoBehaviour
     {
         get { return currentGPUs; }
         set { currentGPUs = value; }
+    }
+
+    public string CurrentJob
+    {
+        get { return currentJob; }
+        set { currentJob = value; }
     }
 }

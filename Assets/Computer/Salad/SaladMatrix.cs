@@ -8,19 +8,20 @@ public class SaladMatrix : MonoBehaviour
 
     private float baseEarnings = 0.0001f;
     private float marketDemand = 1.0f;
+
     private Dictionary<string, float> jobTypes = new Dictionary<string, float>()
     {
-        {"rendering", 5f},
-        {"machine learning", 6f},
-        {"ai training", 8f},
-        {"data mining", 4f},
-        {"data processing", 6.5f},
-        {"data analysis", 4.5f},
-        {"data visualization", 4f},
-        {"web scraping", 2f},
+        {"Rendering", 5f},
+        {"Machine learning", 6f},
+        {"AI training", 8f},
+        {"Data mining", 4f},
+        {"Data processing", 6.5f},
+        {"Data analysis", 4.5f},
+        {"Data visualization", 4f},
+        {"Web scraping", 2f},
     };
 
-    private string currentJob = "waiting";
+    private string currentJob = "None";
     private float currentJobEarnings = 0.0f;
 
     private void Awake()
@@ -42,6 +43,7 @@ public class SaladMatrix : MonoBehaviour
         StartCoroutine(SelectJob());
         StartCoroutine(UpdateMarketDemand());
         StartCoroutine(Earnings());
+        GameManager.instance.CurrentJob = currentJob;
     }
 
     IEnumerator Earnings()
@@ -69,7 +71,7 @@ public class SaladMatrix : MonoBehaviour
     {
         while (true) 
         {
-            yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
+            yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
             marketDemand = Random.Range(1, 1.4f);
         }
     }
@@ -87,6 +89,7 @@ public class SaladMatrix : MonoBehaviour
                 
                 currentJob = keys[randomIndex];
                 currentJobEarnings = jobTypes[currentJob];
+                GameManager.instance.CurrentJob = currentJob;
                 Debug.Log("New job! " + currentJob + " with earnings: " + currentJobEarnings.ToString());
             }
         }
