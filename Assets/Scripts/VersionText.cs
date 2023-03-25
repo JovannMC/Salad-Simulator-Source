@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class VersionText : MonoBehaviour
 {
-    //[SerializeField] private Canvas canvas;
-    
     void Start()
     {
         //DontDestroyOnLoad(canvas);

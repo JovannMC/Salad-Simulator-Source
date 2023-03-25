@@ -8,11 +8,15 @@ public class MonitorInteractScript : MonoBehaviour, IInteractable
     [SerializeField] private Camera monitorCam;
     [SerializeField] private SUPERCharacterAIO playerController;
     [SerializeField] private GameObject monitorOverlay;
+    [SerializeField] private GameObject crosshair;
 
     public void Interact()
     {
         playerController.inUI = true;
+        
         player.GetComponent<SUPERCharacterAIO>().enabled = false;
+
+        crosshair.SetActive(false);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using SUPERCharacter;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ public class ComputerManager : MonoBehaviour, IInteractable
     [SerializeField] private GameObject startupScreen;
     [SerializeField] private GameObject blankScreen;
     [SerializeField] private GameObject monitorOverlay;
+    [SerializeField] private GameObject crosshair;
 
     private bool isShutdown = true;
     private bool menuOpen = false;
@@ -47,6 +49,8 @@ public class ComputerManager : MonoBehaviour, IInteractable
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        
+        crosshair.SetActive(true);
 
         player.GetComponent<SUPERCharacterAIO>().enabled = true;
 
