@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -40,6 +41,8 @@ public class SaladApp : MonoBehaviour
     [Header("Performance tab")]
     [SerializeField] private GameObject cpuCard;
     [SerializeField] private GameObject hardwarePrefab;
+
+    private float[] last24Hours = new float[24];
 
     // Earn tab
     public void ToggleSalad()
@@ -139,13 +142,23 @@ public class SaladApp : MonoBehaviour
             if (GameManager.instance.TimeSpeed == 1)
             {
                 GameManager.instance.Money += GameManager.instance.MoneyPerMinute * 10;
+                last24Hours[GameManager.instance.CurrentHour] = GameManager.instance.MoneyPerMinute * 10;
             } else if (GameManager.instance.TimeSpeed == 2)
             {
                 GameManager.instance.Money += GameManager.instance.MoneyPerMinute * 60;
+                last24Hours[GameManager.instance.CurrentHour] = GameManager.instance.MoneyPerMinute * 60;
             }
+            float last24Hrs = 0;
+            for (int i = 0; i < last24Hours.Length; i++)
+            {
+                if (last24Hours[i] != 0) {
+                    last24Hrs += last24Hours[i];
+                }
+            }
+
             float next24Hrs = GameManager.instance.MoneyPerMinute * 60 * 24;
             balanceText.text = "$" + GameManager.instance.Money.ToString("0.00");
-            last24HrsText.text = "+ $" + GameManager.instance.Money.ToString("0.00");
+            last24HrsText.text = "+ $" + last24Hrs.ToString("0.00");
             next24HrsText.text = "+ $" + next24Hrs.ToString("0.00");
             currentJobText.text = GameManager.instance.CurrentJob;
         }
