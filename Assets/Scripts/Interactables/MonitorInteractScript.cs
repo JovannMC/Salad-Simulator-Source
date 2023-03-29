@@ -14,6 +14,7 @@ public class MonitorInteractScript : MonoBehaviour, IInteractable
     {
         playerController.inUI = true;
         
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<SUPERCharacterAIO>().enabled = false;
 
         crosshair.SetActive(false);
