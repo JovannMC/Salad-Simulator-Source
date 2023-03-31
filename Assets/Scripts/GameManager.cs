@@ -25,7 +25,14 @@ public class GameManager : MonoBehaviour
 
     // PC
     private string currentCPU { get; set; }
+    private List<string> currentRAMs = new List<string>();
     private List<string> currentGPUs = new List<string>();
+    private string currentMobo { get; set; }
+    private string currentPSU { get; set; }
+    private List<string> currentStorages = new List<string>();
+    private List<string> currentCoolings = new List<string>();
+    private string currentCase { get; set; }
+
     public float hardwarePower = 1f;
 
     private void Awake()
@@ -158,10 +165,23 @@ public class GameManager : MonoBehaviour
         set { saladChopping = value; }
     }
 
+    public string CurrentJob
+    {
+        get { return currentJob; }
+        set { currentJob = value; }
+    }
+
+    // PC Hardware
     public string CurrentCPU
     {
         get { return currentCPU; }
         set { currentCPU = value; }
+    }
+
+    public List<string> CurrentRAMs
+    {
+        get { return currentRAMs; }
+        set { currentRAMs = value; }
     }
 
     public List<string> CurrentGPUs
@@ -170,9 +190,34 @@ public class GameManager : MonoBehaviour
         set { currentGPUs = value; }
     }
 
-    public string CurrentJob
+    public string CurrentMobo
     {
-        get { return currentJob; }
-        set { currentJob = value; }
+        get { return currentMobo; }
+        set { currentMobo = value; }
     }
+
+    public string CurrentPSU
+    {
+        get { return currentPSU; }
+        set { currentPSU = value; }
+    }
+
+    public List<string> CurrentStorages
+    {
+        get { return currentStorages; }
+        set { currentStorages = value; }
+    }
+
+    public List<string> CurrentCoolings
+    {
+        get { return currentCoolings; }
+        set { currentCoolings = value; }
+    }
+
+    public string CurrentCase
+    {
+        get { return currentCase; }
+        set { currentCase = value; }
+    }
+
 }

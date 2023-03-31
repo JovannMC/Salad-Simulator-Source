@@ -113,8 +113,11 @@ public static class Hardware
 
         // Motherboard
         {"Omazing Z790", 229.99f},
-        {"Omazing B660", 139.99f},
+        {"Omazing Z590", 199.99f},
+        {"Omazing B660", 149.99f},
+        {"Omazing B460", 119.99f},
         {"Omazing B360", 109.99f},
+        {"Omazing B260", 79.99f},
 
         // PSU
         {"Omazing 300w", 39.99f},
@@ -140,9 +143,9 @@ public static class Hardware
         {"Omazing 6x120mm", 99.99f},
 
         // Case
-        {"Omazing Mid-tower", 69.99f},
-        {"Omazing Full-tower", 99.99f},
-        {"Omazing Extended full-tower", 149.99f},
+        {"Omazing M-ATX", 69.99f},
+        {"Omazing ATX", 99.99f},
+        {"Omazing E-ATX", 149.99f},
 
         // Software
 

@@ -31,6 +31,7 @@ public class OmazingWebsite : MonoBehaviour
     [SerializeField] private GameObject infoCardName;
     [SerializeField] private GameObject infoCardPower;
     [SerializeField] private GameObject infoCardElectricity;
+    [SerializeField] private GameObject infoCardCompatibility;
 
     [Header("Checkout")]
     [SerializeField] private TMP_Text checkoutSubtotalText;
@@ -79,8 +80,11 @@ public class OmazingWebsite : MonoBehaviour
     }
 
     // Homepage
-    public void AddToCart(string item)
+    public void AddToCart()
     {
+        GameObject btn = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+        string item = btn.transform.parent.transform.parent.transform.name;
+
         cartItems++;
         Debug.Log("Added " + item + " to cart");
         cartList.Add(cartItems, item);
@@ -175,27 +179,40 @@ public class OmazingWebsite : MonoBehaviour
         }
     }
 
-    public void ShowInfo(String type) 
+    public void ShowInfo() 
     {
         GameObject btn = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
         string itemName = btn.transform.parent.transform.parent.Find("Name").GetComponent<TMP_Text>().text;
+        string type = btn.transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name;
 
         infoCardName.SetActive(true);
         infoCardPower.SetActive(true);
         infoCardElectricity.SetActive(true);
+        infoCardCompatibility.SetActive(true);
 
         infoCardName.GetComponent<TMP_Text>().text = itemName;
         switch (type) {
-            case "cpu":
+            case "CPU":
                 infoCardPower.GetComponent<TMP_Text>().text = "Power: " + Hardware.cpu[itemName][0];
                 infoCardElectricity.GetComponent<TMP_Text>().text = "Electricity: " + Hardware.cpu[itemName][1] + "w";
+                string compatibilityString = string.Join(", ", HardwareCompatibility.cpu[itemName]);
+                infoCardCompatibility.GetComponent<TMP_Text>().text = compatibilityString;
                 break;
-            case "gpu":
+            case "GPU":
                 infoCardPower.GetComponent<TMP_Text>().text = "Power: " + Hardware.gpu[itemName][0];
                 infoCardElectricity.GetComponent<TMP_Text>().text = "Electricity: " + Hardware.gpu[itemName][1] + "w";
                 break;
         }
         infoCard.SetActive(true);
+    }
+
+    public void CloseInfo()
+    {
+        infoCardName.GetComponent<TMP_Text>().text = "Placeholder";
+        infoCardPower.GetComponent<TMP_Text>().text = "N/A";
+        infoCardElectricity.GetComponent<TMP_Text>().text = "0w";
+        infoCardCompatibility.GetComponent<TMP_Text>().text = "N/A";
+        infoCard.SetActive(false);
     }
 
     // Checkout
