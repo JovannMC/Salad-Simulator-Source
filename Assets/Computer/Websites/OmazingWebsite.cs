@@ -85,7 +85,7 @@ public class OmazingWebsite : MonoBehaviour
         Debug.Log("Added " + item + " to cart");
         cartList.Add(cartItems, item);
         UpdateCartQuantity();
-        UpdateCartPrice(OmazingPrices.price[item]);
+        UpdateCartPrice(Hardware.price[item]);
 
         Debug.Log("Cart List: ");
         foreach (KeyValuePair<int, string> entry in cartList)
@@ -228,7 +228,7 @@ public class OmazingWebsite : MonoBehaviour
             GameObject newItem = Instantiate(checkoutItemPrefab, checkoutItemPrefab.transform.parent);
             newItem.name = "NewItem";
             newItem.transform.Find("ProductName").GetComponent<TMP_Text>().text = item.Value;
-            newItem.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${OmazingPrices.price[item.Value]}";
+            newItem.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${Hardware.price[item.Value]}";
             newItem.SetActive(true);
             checkoutItems.Add(newItem);
             
@@ -236,7 +236,7 @@ public class OmazingWebsite : MonoBehaviour
             GameObject newItemTy = Instantiate(orderReceivedItemPrefab, orderReceivedItemPrefab.transform.parent);
             newItemTy.name = "NewItem";
             newItemTy.transform.Find("ProductName").GetComponent<TMP_Text>().text = item.Value;
-            newItemTy.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${OmazingPrices.price[item.Value]}";
+            newItemTy.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${Hardware.price[item.Value]}";
             newItemTy.SetActive(true);
             orderReceivedItems.Add(newItemTy);
         }
@@ -335,9 +335,9 @@ public class OmazingWebsite : MonoBehaviour
     public void ApplyDiscount(string code)
     {
         discountCode = code;
-        if (OmazingPrices.code.ContainsKey(code))
+        if (Hardware.code.ContainsKey(code))
         {
-            float discountPercent = OmazingPrices.code[code];
+            float discountPercent = Hardware.code[code];
             float discountAmount = (subtotal + float.Parse(checkoutShippingText.text.Replace("$", ""))) * discountPercent / 100f;
             this.discountAmount = discountAmount;
             UpdateCheckout();
