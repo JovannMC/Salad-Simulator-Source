@@ -1,3 +1,4 @@
+using System.Numerics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -318,17 +319,77 @@ public class OmazingWebsite : MonoBehaviour
         }
         saladApp.AddToPerformance(GameManager.instance.CurrentCPU, "CPU");
 
+        // Set current RAM(s)
+        foreach (KeyValuePair<string, float[]> hardware in Hardware.ram) {
+            foreach (KeyValuePair<int, string> cartItem in cartList) {
+                if (hardware.Key == cartItem.Value) {
+                    Debug.Log("Added " + hardware.Key + " to RAM list");
+                    GameManager.instance.CurrentRAMs.Add(hardware.Key);
+                    Debug.Log("Current RAMs: " + GameManager.instance.CurrentRAMs);
+                }
+            }
+        }
+
         // Set current GPU(s)
-        foreach (KeyValuePair<string, float[]> hardwareGPUs in Hardware.gpu) {
-            foreach (KeyValuePair<int, string> cartGPUs in cartList) {
-                if (hardwareGPUs.Key == cartGPUs.Value) {
-                    Debug.Log("Added " + hardwareGPUs.Key + " to GPU list");
-                    GameManager.instance.CurrentGPUs.Add(hardwareGPUs.Key);
+        foreach (KeyValuePair<string, float[]> hardware in Hardware.gpu) {
+            foreach (KeyValuePair<int, string> cartItem in cartList) {
+                if (hardware.Key == cartItem.Value) {
+                    Debug.Log("Added " + hardware.Key + " to GPU list");
+                    GameManager.instance.CurrentGPUs.Add(hardware.Key);
                     Debug.Log("Current GPUs: " + GameManager.instance.CurrentGPUs);
                     GameManager.instance.hardwarePower += Hardware.gpu[GameManager.instance.CurrentGPUs[0]][0];
                     Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
-                    saladApp.AddToPerformance(hardwareGPUs.Key, "GPU");
+                    saladApp.AddToPerformance(hardware.Key, "GPU");
                 }
+            }
+        }
+
+        // Set current motherboard
+        foreach (KeyValuePair<string, float[]> hardware in Hardware.mobo) {
+            if (cartList.ContainsValue(hardware.Key)) {
+                GameManager.instance.CurrentMobo = hardware.Key;
+                Debug.Log("Current mobo: " + GameManager.instance.CurrentMobo);
+                break;
+            }
+        }
+
+        // Set current PSU
+        foreach (KeyValuePair<string, float[]> hardware in Hardware.psu) {
+            if (cartList.ContainsValue(hardware.Key)) {
+                GameManager.instance.CurrentPSU = hardware.Key;
+                Debug.Log("Current PSU: " + GameManager.instance.CurrentPSU);
+                break;
+            }
+        }
+        
+        // Set current storage(s)
+        foreach (KeyValuePair<string, float[]> hardware in Hardware.storage) {
+            foreach (KeyValuePair<int, string> cartItem in cartList) {
+                if (hardware.Key == cartItem.Value) {
+                    Debug.Log("Added " + hardware.Key + " to storage list");
+                    GameManager.instance.CurrentStorages.Add(hardware.Key);
+                    Debug.Log("Current storages: " + GameManager.instance.CurrentStorages);
+                }
+            }
+        }
+
+        // Set current cooling(s)
+        foreach (KeyValuePair<string, float[]> hardware in Hardware.cooling) {
+            foreach (KeyValuePair<int, string> cartItem in cartList) {
+                if (hardware.Key == cartItem.Value) {
+                    Debug.Log("Added " + hardware.Key + " to cooling list");
+                    GameManager.instance.CurrentCoolings.Add(hardware.Key);
+                    Debug.Log("Current coolings: " + GameManager.instance.CurrentCoolings);
+                }
+            }
+        }
+
+        // Set current case
+        foreach (KeyValuePair<string, float[]> hardware in Hardware.pcCase) {
+            if (cartList.ContainsValue(hardware.Key)) {
+                GameManager.instance.CurrentCase = hardware.Key;
+                Debug.Log("Current case: " + GameManager.instance.CurrentCase);
+                break;
             }
         }
 

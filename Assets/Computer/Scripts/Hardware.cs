@@ -23,6 +23,21 @@ public static class Hardware
     };
 
     // Name, Hardware Power, TDP
+    public static readonly Dictionary<string, float[]> ram = new Dictionary<string, float[]>()
+    {
+        {"1x4GB DDR4", new float[] {9.99f}},
+        {"2x4GB DDR4", new float[] {19.98f}},
+        {"1x8GB DDR4", new float[] {19.98f}},
+        {"2x8GB DDR4", new float[] {39.96f}},
+        {"1x16GB DDR4", new float[] {39.96f}},
+        {"2x16GB DDR4", new float[] {79.92f}},
+        {"1x32GB DDR4", new float[] {79.92f}},
+        {"2x32GB DDR4", new float[] {159.84f}},
+        {"1x64GB DDR4", new float[] {159.84f}},
+        {"4x32GB DDR4", new float[] {639.36f}},
+    };
+
+    // Name, Hardware Power, TDP
     public static readonly Dictionary<string, float[]> gpu = new Dictionary<string, float[]>()
     {
         {"RPX 4090", new float[] { 6.0f, 450.0f } },
@@ -50,6 +65,57 @@ public static class Hardware
         {"GPX 1070", new float[] { 2.05f, 150.0f } },
         {"GPX 1060", new float[] { 1.5f, 120.0f } },
         {"GPX 1050 Ti", new float[] { 1.3f, 75.0f } }
+    };
+
+    // Name, Hardware Power, TDP
+    public static readonly Dictionary<string, float[]> mobo = new Dictionary<string, float[]>
+    {
+        {"Omazing Z790", new float[] {0.0f} },
+        {"Omazing Z590", new float[] {0.0f} },
+        {"Omazing B660", new float[] {0.0f} },
+        {"Omazing B460", new float[] {0.0f} },
+        {"Omazing B360", new float[] {0.0f} },
+        {"Omazing B260", new float[] {0.0f} },
+    };
+
+    // Name, Hardware Power, TDP
+    public static readonly Dictionary<string, float[]> psu = new Dictionary<string, float[]>
+    {
+        {"Omazing 300w", new float[] {0.0f} },
+        {"Omazing 500w", new float[] {0.0f} },
+        {"Omazing 750w", new float[] {0.0f} },
+        {"Omazing 800w", new float[] {0.0f} },
+        {"Omazing 1000w", new float[] {0.0f} },
+        {"Omazing 1500w", new float[] {0.0f} },
+    };
+
+    // Name, Hardware Power, TDP
+    public static readonly Dictionary<string, float[]> storage = new Dictionary<string, float[]>
+    {
+        {"500GB SSD", new float[] {0.0f} },
+        {"1TB SSD", new float[] {0.0f} },
+        {"2TB SSD", new float[] {0.0f} },
+        {"1TB HDD", new float[] {0.0f} },
+        {"2TB HDD", new float[] {0.0f} },
+        {"4TB HDD", new float[] {0.0f} },
+        {"8TB HDD", new float[] {0.0f} },
+    };
+
+    // Name, Hardware Power, TDP
+    public static readonly Dictionary<string, float[]> cooling = new Dictionary<string, float[]>
+    {
+        {"Omazing 1x120mm", new float[] {0.0f} },
+        {"Omazing 2x120mm", new float[] {0.0f} },
+        {"Omazing 3x120mm", new float[] {0.0f} },
+        {"Omazing 6x120mm", new float[] {0.0f} },
+    };
+
+    // Name, Hardware Power, TDP
+    public static readonly Dictionary<string, float[]> pcCase = new Dictionary<string, float[]>
+    {
+        {"Omazing M-ATX", new float[] {0.0f} },
+        {"Omazing ATX", new float[] {0.0f} },
+        {"Omazing E-ATX", new float[] {0.0f} },
     };
 
     // Omazing
