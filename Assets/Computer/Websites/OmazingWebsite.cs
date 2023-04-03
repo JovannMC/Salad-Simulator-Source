@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OmazingWebsite : MonoBehaviour
 {
@@ -240,20 +241,74 @@ public class OmazingWebsite : MonoBehaviour
         // add to cart list
         foreach (KeyValuePair<int, string> item in cartList)
         {
+
             GameObject newItem = Instantiate(checkoutItemPrefab, checkoutItemPrefab.transform.parent);
             newItem.name = "NewItem";
             newItem.transform.Find("ProductName").GetComponent<TMP_Text>().text = item.Value;
             newItem.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${Hardware.price[item.Value]}";
             newItem.SetActive(true);
-            checkoutItems.Add(newItem);
             
-            // fixed?
             GameObject newItemTy = Instantiate(orderReceivedItemPrefab, orderReceivedItemPrefab.transform.parent);
             newItemTy.name = "NewItem";
             newItemTy.transform.Find("ProductName").GetComponent<TMP_Text>().text = item.Value;
             newItemTy.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${Hardware.price[item.Value]}";
-            newItemTy.SetActive(true);
             orderReceivedItems.Add(newItemTy);
+
+            if (Hardware.cpu.ContainsKey(item.Value)) 
+            {
+                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cpu");
+                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cpu");
+                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+            } else if (Hardware.gpu.ContainsKey(item.Value)) 
+            {
+                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/gpu");
+                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(125, 100);
+                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/gpu");
+                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(125, 100);
+            } else if (Hardware.ram.ContainsKey(item.Value)) 
+            {
+                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/ram");
+                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/ram");
+                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+            } else if (Hardware.mobo.ContainsKey(item.Value)) 
+            {
+                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/mobo");
+                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/mobo");
+                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+            } else if (Hardware.psu.ContainsKey(item.Value)) 
+            {
+                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/psu");
+                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(150, 100);
+                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/psu");
+                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(150, 100);
+            } else if (Hardware.storage.ContainsKey(item.Value)) 
+            {
+                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/storage");
+                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/storage");
+                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+            } else if (Hardware.cooling.ContainsKey(item.Value)) 
+            {
+                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cooling");
+                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cooling");
+                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+            } else if (Hardware.pcCase.ContainsKey(item.Value)) 
+            {
+                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/case");
+                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(50, 100);
+                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/case");
+                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(50, 100);
+            }
+
+            newItem.transform.Find("Image").GetComponent<Image>().color = Color.black;
+            newItemTy.transform.Find("Image").GetComponent<Image>().color = Color.black;
+
+            checkoutItems.Add(newItem);
+            newItemTy.SetActive(true);
         }
         
         float subtotal = this.subtotal;
