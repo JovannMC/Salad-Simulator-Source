@@ -92,11 +92,8 @@ public class OmazingWebsite : MonoBehaviour
         UpdateCartQuantity();
         UpdateCartPrice(Hardware.price[item]);
 
-        Debug.Log("Cart List: ");
-        foreach (KeyValuePair<int, string> entry in cartList)
-        {
-            Debug.Log("Key: " + entry.Key + " Value: " + entry.Value);
-        }
+        string cart = String.Join(", ", cartList.Values);
+        Debug.Log("Cart: " + cart);
     }
 
     private void UpdateCartQuantity()
@@ -307,91 +304,57 @@ public class OmazingWebsite : MonoBehaviour
         // TODO: create and send to delivery manager
         // deliveryManager.NewDelivery(list);*/
 
-        // Set current CPU
-        foreach (KeyValuePair<string, float[]> cpu in Hardware.cpu) {
-            if (cartList.ContainsValue(cpu.Key)) {
-                GameManager.instance.CurrentCPU = cpu.Key;
-                Debug.Log("Current CPU: " + GameManager.instance.CurrentCPU);
+        // Set singular hardware
+        foreach (KeyValuePair<int, string> cartItem in cartList) {
+            if (Hardware.cpu.ContainsKey(cartItem.Value)) {
+                GameManager.instance.CurrentCPU = cartItem.Value;
                 GameManager.instance.hardwarePower += Hardware.cpu[GameManager.instance.CurrentCPU][0];
-                Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
-                break;
-            }
-        }
-        saladApp.AddToPerformance(GameManager.instance.CurrentCPU, "CPU");
-
-        // Set current RAM(s)
-        foreach (KeyValuePair<string, float[]> hardware in Hardware.ram) {
-            foreach (KeyValuePair<int, string> cartItem in cartList) {
-                if (hardware.Key == cartItem.Value) {
-                    Debug.Log("Added " + hardware.Key + " to RAM list");
-                    GameManager.instance.CurrentRAMs.Add(hardware.Key);
-                    Debug.Log("Current RAMs: " + GameManager.instance.CurrentRAMs);
-                }
+                saladApp.AddToPerformance(GameManager.instance.CurrentCPU, "CPU");
+            } else if (Hardware.mobo.ContainsKey(cartItem.Value)) {
+                GameManager.instance.CurrentMobo = cartItem.Value;
+            } else if (Hardware.psu.ContainsKey(cartItem.Value)) {
+                GameManager.instance.CurrentPSU = cartItem.Value;
+            } else if (Hardware.pcCase.ContainsKey(cartItem.Value)) {
+                GameManager.instance.CurrentCase = cartItem.Value;
             }
         }
 
-        // Set current GPU(s)
-        foreach (KeyValuePair<string, float[]> hardware in Hardware.gpu) {
-            foreach (KeyValuePair<int, string> cartItem in cartList) {
-                if (hardware.Key == cartItem.Value) {
-                    Debug.Log("Added " + hardware.Key + " to GPU list");
-                    GameManager.instance.CurrentGPUs.Add(hardware.Key);
-                    Debug.Log("Current GPUs: " + GameManager.instance.CurrentGPUs);
-                    GameManager.instance.hardwarePower += Hardware.gpu[GameManager.instance.CurrentGPUs[0]][0];
-                    Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
-                    saladApp.AddToPerformance(hardware.Key, "GPU");
-                }
+        // Set multiple hardware
+        foreach (KeyValuePair<int, string> cartItem in cartList) {
+            if (Hardware.ram.ContainsKey(cartItem.Value)) {
+                string hardwareKey = cartItem.Value;
+                GameManager.instance.CurrentRAMs.Add(hardwareKey);
+            }
+            if (Hardware.gpu.ContainsKey(cartItem.Value)) {
+                string hardwareKey = cartItem.Value;
+                GameManager.instance.CurrentGPUs.Add(hardwareKey);
+                GameManager.instance.hardwarePower += Hardware.gpu[hardwareKey][0];
+            }
+            if (Hardware.storage.ContainsKey(cartItem.Value)) {
+                string hardwareKey = cartItem.Value;
+                GameManager.instance.CurrentStorages.Add(hardwareKey);
+            }
+            if (Hardware.cooling.ContainsKey(cartItem.Value)) {
+                string hardwareKey = cartItem.Value;
+                GameManager.instance.CurrentCoolings.Add(hardwareKey);
             }
         }
 
-        // Set current motherboard
-        foreach (KeyValuePair<string, float[]> hardware in Hardware.mobo) {
-            if (cartList.ContainsValue(hardware.Key)) {
-                GameManager.instance.CurrentMobo = hardware.Key;
-                Debug.Log("Current mobo: " + GameManager.instance.CurrentMobo);
-                break;
-            }
-        }
+        string ram = String.Join(", ", GameManager.instance.CurrentRAMs.ToArray());
+        string gpu = String.Join(", ", GameManager.instance.CurrentGPUs.ToArray());
+        string storage = String.Join(", ", GameManager.instance.CurrentStorages.ToArray());
+        string cooling = String.Join(", ", GameManager.instance.CurrentCoolings.ToArray());
 
-        // Set current PSU
-        foreach (KeyValuePair<string, float[]> hardware in Hardware.psu) {
-            if (cartList.ContainsValue(hardware.Key)) {
-                GameManager.instance.CurrentPSU = hardware.Key;
-                Debug.Log("Current PSU: " + GameManager.instance.CurrentPSU);
-                break;
-            }
-        }
-        
-        // Set current storage(s)
-        foreach (KeyValuePair<string, float[]> hardware in Hardware.storage) {
-            foreach (KeyValuePair<int, string> cartItem in cartList) {
-                if (hardware.Key == cartItem.Value) {
-                    Debug.Log("Added " + hardware.Key + " to storage list");
-                    GameManager.instance.CurrentStorages.Add(hardware.Key);
-                    Debug.Log("Current storages: " + GameManager.instance.CurrentStorages);
-                }
-            }
-        }
-
-        // Set current cooling(s)
-        foreach (KeyValuePair<string, float[]> hardware in Hardware.cooling) {
-            foreach (KeyValuePair<int, string> cartItem in cartList) {
-                if (hardware.Key == cartItem.Value) {
-                    Debug.Log("Added " + hardware.Key + " to cooling list");
-                    GameManager.instance.CurrentCoolings.Add(hardware.Key);
-                    Debug.Log("Current coolings: " + GameManager.instance.CurrentCoolings);
-                }
-            }
-        }
-
-        // Set current case
-        foreach (KeyValuePair<string, float[]> hardware in Hardware.pcCase) {
-            if (cartList.ContainsValue(hardware.Key)) {
-                GameManager.instance.CurrentCase = hardware.Key;
-                Debug.Log("Current case: " + GameManager.instance.CurrentCase);
-                break;
-            }
-        }
+        Debug.Log("PC specs:" +
+                  "\nCPU: " + GameManager.instance.CurrentCPU +
+                  "\nRAM: " + ram +
+                  "\nGPU: " + gpu +
+                  "\nMobo: " + GameManager.instance.CurrentMobo +
+                  "\nPSU: " + GameManager.instance.CurrentPSU +
+                  "\nStorage: " + storage +
+                  "\nCooling: " + cooling +
+                  "\nCase: " + GameManager.instance.CurrentCase);
+        Debug.Log("Current hardware power: " + GameManager.instance.hardwarePower);
 
         // Clear cart
         cartList.Clear();
