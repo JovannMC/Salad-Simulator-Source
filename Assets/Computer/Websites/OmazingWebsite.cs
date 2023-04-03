@@ -241,7 +241,6 @@ public class OmazingWebsite : MonoBehaviour
         // add to cart list
         foreach (KeyValuePair<int, string> item in cartList)
         {
-
             GameObject newItem = Instantiate(checkoutItemPrefab, checkoutItemPrefab.transform.parent);
             newItem.name = "NewItem";
             newItem.transform.Find("ProductName").GetComponent<TMP_Text>().text = item.Value;
