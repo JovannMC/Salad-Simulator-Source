@@ -253,58 +253,64 @@ public class OmazingWebsite : MonoBehaviour
             newItemTy.transform.Find("ProductPriceAmount").GetComponent<TMP_Text>().text = $"${Hardware.price[item.Value]}";
             orderReceivedItems.Add(newItemTy);
 
+            Image newItemImage = newItem.transform.Find("Image").GetComponent<Image>(); 
+            Image newItemTyImage = newItemTy.transform.Find("Image").GetComponent<Image>();
+
+            RectTransform newItemRect = newItem.transform.Find("Image").GetComponent<RectTransform>();
+            RectTransform newItemTyRect = newItemTy.transform.Find("Image").GetComponent<RectTransform>();
+
             if (Hardware.cpu.ContainsKey(item.Value)) 
             {
-                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cpu");
-                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
-                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cpu");
-                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cpu");
+                newItemRect.sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTyImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cpu");
+                newItemTyRect.sizeDelta = new UnityEngine.Vector2(100, 100);
             } else if (Hardware.gpu.ContainsKey(item.Value)) 
             {
-                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/gpu");
-                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(125, 100);
-                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/gpu");
-                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(125, 100);
+                newItemImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/gpu");
+                newItemRect.sizeDelta = new UnityEngine.Vector2(125, 100);
+                newItemTyImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/gpu");
+                newItemTyRect.sizeDelta = new UnityEngine.Vector2(125, 100);
             } else if (Hardware.ram.ContainsKey(item.Value)) 
             {
-                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/ram");
-                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
-                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/ram");
-                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/ram");
+                newItemRect.sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTyImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/ram");
+                newItemTyRect.sizeDelta = new UnityEngine.Vector2(100, 100);
             } else if (Hardware.mobo.ContainsKey(item.Value)) 
             {
-                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/mobo");
-                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
-                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/mobo");
-                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/mobo");
+                newItemRect.sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTyImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/mobo");
+                newItemTyRect.sizeDelta = new UnityEngine.Vector2(100, 100);
             } else if (Hardware.psu.ContainsKey(item.Value)) 
             {
-                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/psu");
-                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(150, 100);
-                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/psu");
-                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(150, 100);
+                newItemImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/psu");
+                newItemRect.sizeDelta = new UnityEngine.Vector2(150, 100);
+                newItemTyImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/psu");
+                newItemTyRect.sizeDelta = new UnityEngine.Vector2(150, 100);
             } else if (Hardware.storage.ContainsKey(item.Value)) 
             {
-                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/storage");
-                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
-                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/storage");
-                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/storage");
+                newItemRect.sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTyImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/storage");
+                newItemTyRect.sizeDelta = new UnityEngine.Vector2(100, 100);
             } else if (Hardware.cooling.ContainsKey(item.Value)) 
             {
-                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cooling");
-                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
-                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cooling");
-                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cooling");
+                newItemRect.sizeDelta = new UnityEngine.Vector2(100, 100);
+                newItemTyImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/cooling");
+                newItemTyRect.sizeDelta = new UnityEngine.Vector2(100, 100);
             } else if (Hardware.pcCase.ContainsKey(item.Value)) 
             {
-                newItem.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/case");
-                newItem.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(50, 100);
-                newItemTy.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/case");
-                newItemTy.transform.Find("Image").GetComponent<RectTransform>().sizeDelta = new UnityEngine.Vector2(50, 100);
+                newItemImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/case");
+                newItemRect.sizeDelta = new UnityEngine.Vector2(50, 100);
+                newItemTyImage.sprite = Resources.Load<Sprite>("Images/Icons/Hardware/case");
+                newItemTyRect.sizeDelta = new UnityEngine.Vector2(50, 100);
             }
 
-            newItem.transform.Find("Image").GetComponent<Image>().color = Color.black;
-            newItemTy.transform.Find("Image").GetComponent<Image>().color = Color.black;
+            newItemImage.color = Color.black;
+            newItemTyImage.color = Color.black;
 
             checkoutItems.Add(newItem);
             newItemTy.SetActive(true);
