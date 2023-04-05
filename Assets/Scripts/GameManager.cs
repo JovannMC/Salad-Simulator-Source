@@ -56,6 +56,15 @@ public class GameManager : MonoBehaviour
         currentHour = 0;
         currentMinute = 0;
 
+        currentCPU = "z3-8100";
+        currentRAMs.Add("2GB DDR4");
+        currentMobo = "B260";
+        currentPSU = "Omazing 200w";
+        currentStorages.Add("250GB HDD");
+        currentCoolings.Add("Omazing 212 EVO");
+        currentCoolings.Add("2x120mm");
+        currentCase = "Omazing Mini-ITX";
+
         InvokeRepeating("UpdateTime", 0, 1);
     }
 
