@@ -104,6 +104,9 @@ public static class Hardware
     // Name, Hardware Power, TDP
     public static readonly Dictionary<string, float[]> cooling = new Dictionary<string, float[]>
     {
+        {"Omazing 120mm", new float[] {0.0f}},
+        {"Omazing 240mm", new float[] {0.0f} },
+        {"Omazing 360mm", new float[] {0.0f} },
         {"Omazing 1x120mm", new float[] {0.0f} },
         {"Omazing 2x120mm", new float[] {0.0f} },
         {"Omazing 3x120mm", new float[] {0.0f} },
@@ -203,6 +206,9 @@ public static class Hardware
         {"8TB HDD", 119.99f},
 
         // Cooling
+        {"Omazing 120mm", 69.99f},
+        {"Omazing 240mm", 99.99f},
+        {"Omazing 360mm", 149.99f},
         {"Omazing 1x120mm", 19.99f},
         {"Omazing 2x120mm", 39.99f},
         {"Omazing 3x120mm", 69.99f},
