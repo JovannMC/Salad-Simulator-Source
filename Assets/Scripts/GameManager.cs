@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,13 +41,18 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
 
-        DontDestroyOnLoad(gameObject);
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     public void Start()
@@ -81,6 +87,17 @@ public class GameManager : MonoBehaviour
         {
             timeRunning = true;
         }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene loaded: " + scene.name);
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        
+        Debug.Log("Scene unloaded: " + scene.name);
     }
 
     // Time system

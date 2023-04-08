@@ -26,6 +26,7 @@ public class SUPERCharacterAIO : MonoBehaviour{
     public bool controllerPaused = false;
 
     public bool inUI { get; set; }
+    public bool inComputer { get; set; }
 
     #region Camera Settings
     [Header("Camera Settings")]

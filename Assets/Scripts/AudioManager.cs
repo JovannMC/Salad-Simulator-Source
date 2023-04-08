@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance;
+
     private AudioSource audioSource;
 
     private List<AudioClip> mouseClicks = new List<AudioClip>();
@@ -10,8 +12,17 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
         audioSource = GetComponent<AudioSource>();
-        DontDestroyOnLoad(gameObject);
 
         mouseClicks = new List<AudioClip>(Resources.LoadAll<AudioClip>("Audio/Computer/Mouse/"));
         keyboardClicks = new List<AudioClip>(Resources.LoadAll<AudioClip>("Audio/Computer/Keyboard/Single"));

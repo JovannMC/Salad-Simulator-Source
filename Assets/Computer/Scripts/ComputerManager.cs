@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using SUPERCharacter;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,26 +5,36 @@ using UnityEngine;
 
 public class ComputerManager : MonoBehaviour, IInteractable
 {
-    [SerializeField] private GameObject player;
+    
     [SerializeField] private GameObject monitorScreen;
-    [SerializeField] private Camera playerCam;
     [SerializeField] private Camera monitorCam;
     [SerializeField] private GameObject startMenu;
-    [SerializeField] private SUPERCharacterAIO playerController;
-
+    
     [SerializeField] private GameObject startupScreen;
     [SerializeField] private GameObject blankScreen;
     [SerializeField] private GameObject monitorOverlay;
-    [SerializeField] private GameObject crosshair;
+
+    private GameObject player;
+    private SUPERCharacterAIO playerController;
+    private GameObject crosshair;
+    private Camera playerCam;
 
     private bool isShutdown = true;
     private bool menuOpen = false;
 
     private List<Coroutine> runningCoroutines = new List<Coroutine>();
 
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerCam = player.GetComponentInChildren<Camera>();
+        playerController = player.GetComponent<SUPERCharacterAIO>();
+        crosshair = GameObject.Find("Crosshair");
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && playerController.inUI)
+        if (Input.GetKeyDown(KeyCode.Escape) && playerController.inComputer)
         {
             ExitClick();
         }
@@ -59,7 +68,7 @@ public class ComputerManager : MonoBehaviour, IInteractable
 
         monitorOverlay.SetActive(false);
 
-        playerController.inUI = false;
+        playerController.inComputer = false;
     }
 
     public void ShutdownComputer()

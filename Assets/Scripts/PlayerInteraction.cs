@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    public static PlayerInteraction instance;
+
     [SerializeField] private Camera playerCam;
     [SerializeField] private float interactionDistance;
 
@@ -15,6 +17,19 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private SUPERCharacterAIO playerController;
 
     private GameObject previousInteraction = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Update()
     {
