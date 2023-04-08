@@ -35,7 +35,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         InteractionRay();
 
-        if (playerController.inUI)
+        if (playerController.inUI || playerController.inComputer)
         {
             interactionUI.SetActive(false);
         }
