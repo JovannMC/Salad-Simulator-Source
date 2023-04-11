@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     private List<string> currentCoolings = new List<string>();
     private string currentCase { get; set; }
 
+    public bool isNoticeActive = false;
+
     public float hardwarePower = 1f;
 
     private void Awake()

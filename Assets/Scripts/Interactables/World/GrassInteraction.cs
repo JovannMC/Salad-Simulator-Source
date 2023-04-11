@@ -4,7 +4,6 @@ using UnityEngine;
 public class GrassInteraction : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject grassPrompt;
-    private bool isTextActive = false;
     
 
     public void Interact()
@@ -15,16 +14,14 @@ public class GrassInteraction : MonoBehaviour, IInteractable
 
     IEnumerator TouchGrass()
     {
-        if (isTextActive)
+        if (!GameManager.instance.isNoticeActive)
         {
-            yield break;
+            GameManager.instance.isNoticeActive = true;
+            grassPrompt.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            grassPrompt.SetActive(false);
+            GameManager.instance.isNoticeActive = false;
         }
-        
-        isTextActive = true;
-        grassPrompt.SetActive(true);
-        yield return new WaitForSeconds(3f);
-        grassPrompt.SetActive(false);
-        isTextActive = false;
     }
 
     public string GetDescription()
