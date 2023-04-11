@@ -50,13 +50,13 @@ public class SettingsManager : MonoBehaviour
 
     private void SetSystemInfo()
     {
-        cpuText.text = "CPU: " + GameManager.instance.CurrentCPU;
-        ramText.text = "RAM: " + string.Join(", ", GameManager.instance.CurrentRAMs);
-        gpuText.text = "GPU: " + string.Join(", ", GameManager.instance.CurrentGPUs);
-        moboText.text = "Motherboard: " + GameManager.instance.CurrentMobo;
-        psuText.text = "PSU: " + GameManager.instance.CurrentPSU;
-        storageText.text = "Storage: " + string.Join(", ", GameManager.instance.CurrentStorages);
-        coolingText.text = "Cooling: " + string.Join(", ", GameManager.instance.CurrentCoolings);
-        caseText.text = "Case: " + GameManager.instance.CurrentCase;
+        cpuText.text = GameManager.instance.CurrentCPU;
+        ramText.text = string.Join(", ", GameManager.instance.CurrentRAMs);
+        gpuText.text = string.Join(", ", GameManager.instance.CurrentGPUs);
+        moboText.text = GameManager.instance.CurrentMobo;
+        psuText.text = GameManager.instance.CurrentPSU;
+        storageText.text = string.Join(", ", GameManager.instance.CurrentStorages);
+        coolingText.text = string.Join(", ", GameManager.instance.CurrentCoolings);
+        caseText.text = GameManager.instance.CurrentCase;
     }
 }
