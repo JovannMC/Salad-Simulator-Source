@@ -1,4 +1,3 @@
-using System.Numerics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,10 +40,12 @@ public class OmazingWebsite : MonoBehaviour
     [SerializeField] private TMP_Text checkoutDiscountText;
     [SerializeField] private TMP_Text checkoutTaxText;
     [SerializeField] private TMP_Text checkoutTotalText;
+    [SerializeField] private TMP_InputField discountCodeInput;
     [SerializeField] private GameObject checkoutItemsList;
     [SerializeField] private GameObject checkoutItemPrefab;
     [SerializeField] private GameObject noMoneyError;
     [SerializeField] private GameObject noCartItemsError;
+    [SerializeField] private GameObject negativeError;
 
     [Header("Order Received")]
     [SerializeField] private TMP_Text orderReceivedSubtotalText;
@@ -217,6 +218,18 @@ public class OmazingWebsite : MonoBehaviour
     // Checkout
     public void GoToCheckout()
     {
+        if (this.subtotal < 0 || this.total < 0 || this.discountAmount < 0)
+        {
+            // this shouldn't be possible but just in case lol
+            // if you do somehow get this error, how
+            this.subtotal = 0;
+            this.total = 0;
+            this.discountAmount = 0;
+            negativeError.SetActive(true);
+            ClearCart();
+            return;
+        }
+
         categories.SetActive(false);
         checkout.SetActive(true);
         checkoutItemsList.SetActive(true);
@@ -241,6 +254,7 @@ public class OmazingWebsite : MonoBehaviour
         // add to cart list
         foreach (KeyValuePair<int, string> item in cartList)
         {
+            print(this.subtotal);
             GameObject newItem = Instantiate(checkoutItemPrefab, checkoutItemPrefab.transform.parent);
             newItem.name = "NewItem";
             newItem.transform.Find("ProductName").GetComponent<TMP_Text>().text = item.Value;
@@ -315,8 +329,6 @@ public class OmazingWebsite : MonoBehaviour
             checkoutItems.Add(newItem);
             newItemTy.SetActive(true);
         }
-        
-        float subtotal = this.subtotal;
         
         checkoutSubtotalText.text = subtotal.ToString();
         UpdateCheckout();
@@ -423,6 +435,9 @@ public class OmazingWebsite : MonoBehaviour
         cartPriceText.text = "$0.00";
         checkoutSubtotalText.text = "$0.00";
         subtotal = 0;
+        discountCode = null;
+        discountAmount = 0;
+        discountCodeInput.text = "";
 
         foreach (GameObject item in checkoutItems)
         {
