@@ -5,6 +5,8 @@ public class SaveSystem : MonoBehaviour
 {
     public static SaveSystem instance;
 
+    private bool saveData = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -67,8 +69,8 @@ public class SaveSystem : MonoBehaviour
     public void ResetSave()
     {
         Debug.Log("Resetting save...");
+        saveData = false;
         PlayerPrefs.DeleteAll();
-        LoadPrefs();
         Application.Quit();
     }
 
@@ -83,6 +85,7 @@ public class SaveSystem : MonoBehaviour
 
     private void OnApplicationQuit()
     {
+        if (!saveData) return;
         Debug.Log("Saving...");
         PlayerPrefs.SetInt("hasLaunchedBefore", 1);
         PlayerPrefs.SetFloat("money", GameManager.instance.Money);
