@@ -55,17 +55,6 @@ public class SettingsManager : MonoBehaviour
 
     }
 
-    public void ToggleTimeSpeed() 
-    {
-        if (GameManager.instance.timeSpeed == 1) {
-            GameManager.instance.timeSpeed = 2;
-            timeSpeedText.text = "Time speed: 2 \n (1s = 1h)";
-        } else {
-            GameManager.instance.timeSpeed = 1;
-            timeSpeedText.text = "Time speed: 1 \n (1s = 10m)";
-        }
-    }
-
     private void SetSystemInfo()
     {
         cpuText.text = GameManager.instance.CurrentCPU;

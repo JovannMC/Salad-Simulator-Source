@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
     private List<string> currentCoolings = new List<string>();
     private string currentCase { get; set; }
 
+    // Settings
+    [SerializeField] private TMP_Text timeSpeedText;
+
     public bool isNoticeActive = false;
 
     public float hardwarePower = 1f;
@@ -161,6 +164,17 @@ public class GameManager : MonoBehaviour
                 }
                 TimeText.text = "Time: " + currentDay + "d " + currentHour + "h " + currentMinute + "m";
             }
+        }
+    }
+
+    public void ToggleTimeSpeed() 
+    {
+        if (GameManager.instance.timeSpeed == 1) {
+            GameManager.instance.timeSpeed = 2;
+            timeSpeedText.text = "Time speed: 2 \n (1s = 1h)";
+        } else {
+            GameManager.instance.timeSpeed = 1;
+            timeSpeedText.text = "Time speed: 1 \n (1s = 10m)";
         }
     }
 
