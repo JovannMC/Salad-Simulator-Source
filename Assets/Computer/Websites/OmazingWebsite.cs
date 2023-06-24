@@ -401,6 +401,7 @@ public class OmazingWebsite : MonoBehaviour
                 string hardwareKey = cartItem.Value;
                 GameManager.instance.CurrentGPUs.Add(hardwareKey);
                 GameManager.instance.hardwarePower += Hardware.gpu[hardwareKey][0];
+                saladApp.AddToPerformance(hardwareKey, "GPU");
             }
             if (Hardware.storage.ContainsKey(cartItem.Value)) {
                 string hardwareKey = cartItem.Value;

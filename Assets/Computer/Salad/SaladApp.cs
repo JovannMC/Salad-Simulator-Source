@@ -81,7 +81,8 @@ public class SaladApp : MonoBehaviour
         } else if (hardwareType == "GPU") {
             GameObject hardware = Instantiate(hardwarePrefab, hardwarePrefab.transform.parent);
             hardware.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = hardwareName;
-            hardware.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/graphic-card");
+            hardware.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/gpu");
+            hardware.transform.Find("Image").GetComponent<Image>().rectTransform.sizeDelta = new Vector2(50, 40);
             hardware.SetActive(true);
         }
         
