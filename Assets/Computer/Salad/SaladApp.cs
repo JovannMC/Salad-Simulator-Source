@@ -51,6 +51,9 @@ public class SaladApp : MonoBehaviour
             GameManager.instance.SaladChopping = false;
             runningImg.SetActive(false);
 
+            currentJobText.text = "-";
+            next24HrsText.text = "+ $0.00";
+
             choppingBtn.GetComponent<CircleGraphic>().color = new Color32(30, 51, 68, 255);
             startImg.SetActive(true);
 
@@ -166,7 +169,13 @@ public class SaladApp : MonoBehaviour
             balanceText.text = "$" + GameManager.instance.Money.ToString("0.00");
             last24HrsText.text = "+ $" + last24Hrs.ToString("0.00");
             next24HrsText.text = "+ $" + next24Hrs.ToString("0.00");
-            currentJobText.text = GameManager.instance.CurrentJob;
+
+            if (GameManager.instance.CurrentJob == "None") {
+                currentJobText.text = "-";
+            } else {
+                currentJobText.text = GameManager.instance.CurrentJob;
+                
+            }
         }
     }
 
