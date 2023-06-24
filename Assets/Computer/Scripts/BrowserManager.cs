@@ -10,11 +10,9 @@ public class BrowserManager : MonoBehaviour
     [SerializeField] private GameObject salad;
         [SerializeField] private GameObject saladLoadingScreen;
     [SerializeField] private GameObject omazing;
-    [SerializeField] private GameObject zbay;
-    [SerializeField] private GameObject uspipe;
     [SerializeField] private GameObject soafen;
     [SerializeField] private GameObject femboyfurry;
-    [SerializeField] private GameObject w2s;
+    [SerializeField] private GameObject cyph;
 
     public string currentWebsite { get; set; }
 
@@ -48,14 +46,6 @@ public class BrowserManager : MonoBehaviour
                 urlText.text = "https://omazing.com";
                 omazing.SetActive(true);
                 break;
-            case "zbay":
-                urlText.text = "https://zbay.com";
-                zbay.SetActive(true);
-                break;
-            case "uspipe":
-                urlText.text = "https://uspipe.com";
-                uspipe.SetActive(true);
-                break;
             case "soafen":
                 urlText.text = "https://soafen.love";
                 soafen.SetActive(true);
@@ -64,9 +54,9 @@ public class BrowserManager : MonoBehaviour
                 urlText.text = "https://femboyfurry.net";
                 femboyfurry.SetActive(true);
                 break;
-            case "w2s":
-                urlText.text = "https://workplace2software.net";
-                w2s.SetActive(true);
+            case "cyph":
+                urlText.text = "https://cyph.codes";
+                cyph.SetActive(true);
                 break;
         }
         // Set active website
