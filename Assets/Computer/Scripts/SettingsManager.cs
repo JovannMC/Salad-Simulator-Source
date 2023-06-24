@@ -4,6 +4,7 @@ using UnityEngine;
 public class SettingsManager : MonoBehaviour
 {
     [SerializeField] private GameObject main;
+        [SerializeField] private TMP_Text timeSpeedText;
     [SerializeField] private GameObject systemInfo;
     [SerializeField] private GameObject appearance;
 
@@ -17,6 +18,11 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private TMP_Text coolingText;
     [SerializeField] private TMP_Text caseText;
     [SerializeField] private TMP_Text hardwarePowerText;
+
+    private void Start()
+    {
+        timeSpeedText.text = "Time speed: " + GameManager.instance.timeSpeed + "\n (1s = " + (GameManager.instance.timeSpeed == 1 ? "10m" : "1h") + ")";
+    }
 
     public void HidePages()
     {
@@ -47,6 +53,17 @@ public class SettingsManager : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void ToggleTimeSpeed() 
+    {
+        if (GameManager.instance.timeSpeed == 1) {
+            GameManager.instance.timeSpeed = 2;
+            timeSpeedText.text = "Time speed: 2 \n (1s = 1h)";
+        } else {
+            GameManager.instance.timeSpeed = 1;
+            timeSpeedText.text = "Time speed: 1 \n (1s = 10m)";
+        }
     }
 
     private void SetSystemInfo()
