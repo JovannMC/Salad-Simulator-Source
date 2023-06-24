@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,6 +44,20 @@ public class SaladApp : MonoBehaviour
 
     private float[] last24Hours = new float[24];
 
+    private void Start()
+    {
+        // Load Salad data
+        balanceText.text = "$" + GameManager.instance.Money.ToString("F2");
+        last24HrsText.text = "+ $" + GameManager.instance.Last24Hrs.ToString("F2");
+
+        // Load PC data
+        AddToPerformance(GameManager.instance.CurrentCPU, "CPU");
+        foreach (string GPU in LoadStringList("currentGPUs"))
+        {
+            if (GPU != "") AddToPerformance(GPU, "GPU");
+        }
+    }
+
     // Earn tab
     public void ToggleSalad()
     {
@@ -60,7 +75,8 @@ public class SaladApp : MonoBehaviour
             statusBg.GetComponent<Image>().color = Color.white;
             statusText.text = "Paused";
             StopCoroutine("AddMoney");
-        } else
+        }
+        else
         {
             GameManager.instance.SaladChopping = true;
             startImg.SetActive(false);
@@ -74,18 +90,21 @@ public class SaladApp : MonoBehaviour
         }
     }
 
-    public void AddToPerformance(string hardwareName, string hardwareType) 
+    public void AddToPerformance(string hardwareName, string hardwareType)
     {
-        if (hardwareType == "CPU") {
+        if (hardwareType == "CPU")
+        {
             cpuCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = hardwareName;
-        } else if (hardwareType == "GPU") {
+        }
+        else if (hardwareType == "GPU")
+        {
             GameObject hardware = Instantiate(hardwarePrefab, hardwarePrefab.transform.parent);
             hardware.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = hardwareName;
             hardware.transform.Find("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/Icons/Hardware/gpu");
             hardware.transform.Find("Image").GetComponent<Image>().rectTransform.sizeDelta = new Vector2(50, 40);
             hardware.SetActive(true);
         }
-        
+
     }
 
     public void OpenTab(string tab)
@@ -148,7 +167,8 @@ public class SaladApp : MonoBehaviour
                 GameManager.instance.LifetimeBalance += GameManager.instance.MoneyPerMinute * 10;
                 if (GameManager.instance.MoneyPerMinute != 0) GameManager.instance.LifetimeXP += 10;
                 last24Hours[GameManager.instance.CurrentHour] = GameManager.instance.MoneyPerMinute * 10;
-            } else if (GameManager.instance.TimeSpeed == 2)
+            }
+            else if (GameManager.instance.TimeSpeed == 2)
             {
                 GameManager.instance.Money += GameManager.instance.MoneyPerMinute * 60;
                 GameManager.instance.LifetimeBalance += GameManager.instance.MoneyPerMinute * 60;
@@ -158,7 +178,8 @@ public class SaladApp : MonoBehaviour
             float last24Hrs = 0;
             for (int i = 0; i < last24Hours.Length; i++)
             {
-                if (last24Hours[i] != 0) {
+                if (last24Hours[i] != 0)
+                {
                     last24Hrs += last24Hours[i];
                 }
             }
@@ -169,13 +190,27 @@ public class SaladApp : MonoBehaviour
             last24HrsText.text = "+ $" + last24Hrs.ToString("0.00");
             next24HrsText.text = "+ $" + next24Hrs.ToString("0.00");
 
-            if (GameManager.instance.CurrentJob == "None") {
+            if (GameManager.instance.CurrentJob == "None")
+            {
                 currentJobText.text = "-";
-            } else {
+            }
+            else
+            {
                 currentJobText.text = GameManager.instance.CurrentJob;
                 GameManager.instance.SaladChoppingTime += 1;
             }
         }
+    }
+
+    private List<string> LoadStringList(string key)
+    {
+        // Load the serialized string from PlayerPrefs
+        string serializedList = PlayerPrefs.GetString(key);
+
+        // Convert the serialized string back to a list
+        List<string> stringList = new List<string>(serializedList.Split(','));
+
+        return stringList;
     }
 
 }
