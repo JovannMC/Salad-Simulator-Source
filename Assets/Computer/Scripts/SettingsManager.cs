@@ -16,6 +16,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private TMP_Text storageText;
     [SerializeField] private TMP_Text coolingText;
     [SerializeField] private TMP_Text caseText;
+    [SerializeField] private TMP_Text hardwarePowerText;
 
     public void HidePages()
     {
@@ -58,5 +59,6 @@ public class SettingsManager : MonoBehaviour
         storageText.text = string.Join(", ", GameManager.instance.CurrentStorages);
         coolingText.text = string.Join(", ", GameManager.instance.CurrentCoolings);
         caseText.text = GameManager.instance.CurrentCase;
+        hardwarePowerText.text = GameManager.instance.hardwarePower.ToString();
     }
 }
