@@ -7,16 +7,19 @@ public class DebugConsole : MonoBehaviour
     public static void SetMoney(float amount)
     {
         GameManager.instance.Money = amount;
+        GameManager.instance.LifetimeBalance = amount;
     }
     [ConsoleMethod("addmoney", "Adds the specified amount to the player's money")]
     public static void AddMoney(float amount)
     {
         GameManager.instance.Money += amount;
+        GameManager.instance.LifetimeBalance += amount;
     }
     [ConsoleMethod("removemoney", "Removes the specified amount from the player's money")]
     public static void RemoveMoney(float amount)
     {
         GameManager.instance.Money -= amount;
+        GameManager.instance.LifetimeBalance -= amount;
     }
     [ConsoleMethod("settimespeed", "Sets the game's time speed. 1 = 10 minutes per second, 2 = 1 hour per second")]
     public static void SetTimeSpeed(int amount)

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -142,10 +141,14 @@ public class SaladApp : MonoBehaviour
             if (GameManager.instance.TimeSpeed == 1)
             {
                 GameManager.instance.Money += GameManager.instance.MoneyPerMinute * 10;
+                GameManager.instance.LifetimeBalance += GameManager.instance.MoneyPerMinute * 10;
+                if (GameManager.instance.MoneyPerMinute != 0) GameManager.instance.LifetimeXP += 10;
                 last24Hours[GameManager.instance.CurrentHour] = GameManager.instance.MoneyPerMinute * 10;
             } else if (GameManager.instance.TimeSpeed == 2)
             {
                 GameManager.instance.Money += GameManager.instance.MoneyPerMinute * 60;
+                GameManager.instance.LifetimeBalance += GameManager.instance.MoneyPerMinute * 60;
+                if (GameManager.instance.MoneyPerMinute != 0) GameManager.instance.LifetimeXP += 60;
                 last24Hours[GameManager.instance.CurrentHour] = GameManager.instance.MoneyPerMinute * 60;
             }
             float last24Hrs = 0;
@@ -155,6 +158,7 @@ public class SaladApp : MonoBehaviour
                     last24Hrs += last24Hours[i];
                 }
             }
+            GameManager.instance.Last24Hrs = last24Hrs;
 
             float next24Hrs = GameManager.instance.MoneyPerMinute * 60 * 24;
             balanceText.text = "$" + GameManager.instance.Money.ToString("0.00");

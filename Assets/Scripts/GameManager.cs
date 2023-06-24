@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     private float money { get; set; }
+    private int lifetimeXP { get; set; }
+    private float lifetimeBalance { get; set; }
 
     [SerializeField] private TMP_Text moneyText;
 
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
     private bool saladChopping { get; set; }
     private float moneyPerMinute { get; set; }
     private string currentJob { get; set; }
+    private float last24Hrs { get; set; }
 
     // PC
     private string currentCPU { get; set; }
@@ -85,7 +88,8 @@ public class GameManager : MonoBehaviour
         if (timeSpeed == 0)
         {
             timeRunning = false;
-        } else
+        }
+        else
         {
             timeRunning = true;
         }
@@ -98,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneUnloaded(Scene scene)
     {
-        
+
         Debug.Log("Scene unloaded: " + scene.name);
     }
 
@@ -151,6 +155,18 @@ public class GameManager : MonoBehaviour
         set { money = value; }
     }
 
+    public int LifetimeXP
+    {
+        get { return lifetimeXP; }
+        set { lifetimeXP = value; }
+    }
+
+    public float LifetimeBalance
+    {
+        get { return lifetimeBalance; }
+        set { lifetimeBalance = value; }
+    }
+
     public float MoneyPerMinute
     {
         get { return moneyPerMinute; }
@@ -197,6 +213,12 @@ public class GameManager : MonoBehaviour
     {
         get { return currentJob; }
         set { currentJob = value; }
+    }
+
+    public float Last24Hrs
+    {
+        get { return last24Hrs; }
+        set { last24Hrs = value; }
     }
 
     // PC Hardware
