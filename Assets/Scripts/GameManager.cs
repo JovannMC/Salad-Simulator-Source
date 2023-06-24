@@ -64,18 +64,8 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         timeRunning = true;
-        currentDay = 1;
-        currentHour = 0;
-        currentMinute = 0;
-
-        currentCPU = "z3-8100";
-        currentRAMs.Add("2GB DDR4");
-        currentMobo = "B260";
-        currentPSU = "Omazing 200w";
-        currentStorages.Add("250GB HDD");
-        currentCoolings.Add("Omazing 212 EVO");
-        currentCoolings.Add("2x120mm");
-        currentCase = "Omazing Mini-ITX";
+        
+        LoadSave();
 
         InvokeRepeating("UpdateTime", 0, 1);
     }
@@ -94,6 +84,31 @@ public class GameManager : MonoBehaviour
         {
             timeRunning = true;
         }
+    }
+
+    private void LoadSave()
+    {
+        money = PlayerPrefs.GetFloat("money");
+        lifetimeBalance = PlayerPrefs.GetFloat("lifetimeBalance");
+
+        lifetimeXP = PlayerPrefs.GetInt("lifetimeXP");
+        saladChoppingTime = PlayerPrefs.GetInt("saladChoppingTime");
+        currentDay = PlayerPrefs.GetInt("currentDay");
+        currentHour = PlayerPrefs.GetInt("currentHour");
+        currentMinute = PlayerPrefs.GetInt("currentMinute");
+        last24Hrs = PlayerPrefs.GetFloat("last24Hrs");
+        timeSpeed = PlayerPrefs.GetInt("timeSpeed");
+
+        currentCPU = PlayerPrefs.GetString("currentCPU");
+        currentRAMs = LoadStringList("currentRAMs");
+        currentGPUs = LoadStringList("currentGPUs");
+        currentMobo = PlayerPrefs.GetString("currentMobo");
+        currentPSU = PlayerPrefs.GetString("currentPSU");
+        currentStorages = LoadStringList("currentStorages");
+        currentCoolings = LoadStringList("currentCoolings");
+        currentCase = PlayerPrefs.GetString("currentCase");
+
+        hardwarePower = PlayerPrefs.GetFloat("hardwarePower");
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -147,6 +162,17 @@ public class GameManager : MonoBehaviour
                 TimeText.text = "Time: " + currentDay + "d " + currentHour + "h " + currentMinute + "m";
             }
         }
+    }
+
+    private List<string> LoadStringList(string key)
+    {
+        // Load the serialized string from PlayerPrefs
+        string serializedList = PlayerPrefs.GetString(key);
+
+        // Convert the serialized string back to a list
+        List<string> stringList = new List<string>(serializedList.Split(','));
+
+        return stringList;
     }
 
     // Getters and setters

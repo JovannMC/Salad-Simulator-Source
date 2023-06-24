@@ -31,4 +31,9 @@ public class DebugConsole : MonoBehaviour
     {
         GameManager.instance.hardwarePower = amount;
     }
+    [ConsoleMethod("resetsave", "Resets the player's save")]
+    public static void ResetSave()
+    {
+        SaveSystem.instance.ResetSave();
+    }
 }
