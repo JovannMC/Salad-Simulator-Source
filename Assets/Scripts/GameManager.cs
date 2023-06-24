@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public int timeSpeed = 2;
 
     // Salad
+    private int saladChoppingTime { get; set; }
     private bool saladChopping { get; set; }
     private float moneyPerMinute { get; set; }
     private string currentJob { get; set; }
@@ -201,6 +202,13 @@ public class GameManager : MonoBehaviour
     {
         get { return timeSpeed; }
         set { timeSpeed = value; }
+    }
+
+    // Salad
+    public int SaladChoppingTime
+    {
+        get { return saladChoppingTime; }
+        set { saladChoppingTime = value; }
     }
 
     public bool SaladChopping

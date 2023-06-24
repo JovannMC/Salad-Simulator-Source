@@ -160,6 +160,8 @@ public class SaladApp : MonoBehaviour
             }
             GameManager.instance.Last24Hrs = last24Hrs;
 
+            GameManager.instance.SaladChoppingTime += 1;
+
             float next24Hrs = GameManager.instance.MoneyPerMinute * 60 * 24;
             balanceText.text = "$" + GameManager.instance.Money.ToString("0.00");
             last24HrsText.text = "+ $" + last24Hrs.ToString("0.00");

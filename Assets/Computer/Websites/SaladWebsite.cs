@@ -22,7 +22,7 @@ public class SaladWebsite : MonoBehaviour
         currentBalanceNavbarText.text = "$" + GameManager.instance.Money.ToString("F2");
         currentBalanceText.text = "$" + GameManager.instance.Money.ToString("F2");
         lifetimeBalanceText.text = "$" + GameManager.instance.LifetimeBalance.ToString("F2");
-        lifetimeXPText.text = GameManager.instance.LifetimeXP.ToString("F0");
+        lifetimeXPText.text = GameManager.instance.LifetimeXP.ToString("F0") + " (" + GameManager.instance.SaladChoppingTime + "s)";
         last24HrsText.text = "$" + GameManager.instance.Last24Hrs.ToString("F2");
     }
 
